@@ -2,13 +2,23 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const morgan = require('morgan');
+const mongoose = require('mongoose');
+var Book = require('../models/book');
+
+// DB connection
+mongoose.connect('mongodb://localhost:27017/books');
+var db = mongoose.connection;
+db.on("error", console.error.bind(console, "Connection Error"));
+db.on("open", function(callback){
+    console.log("Connection Successful");
+})
 
 const app = express();
 app.use(morgan('combined'));
 app.use(bodyParser.json());
 app.use(cors());
 
-app.get('/books', (req, res) => {
+app.get('/', (req, res) => {
     res.send(
         [
             {
@@ -28,5 +38,39 @@ app.get('/books', (req, res) => {
         ]
     )
 })
+// Create a book
+app.post('/book', (req, res) => {
+    var db = req.db;
+    var title = req.body.title;
+    var description = req.body.description;
+    var author = req.body.author;
+    var rating = req.body.rating;
+
+    var new_book = new Book({
+        title: title,
+        description: description,
+        author: author,
+        rating: rating
+    })
+    new_book.save(function(error){
+        if (error){
+            console.log(error);
+        }
+        res.send({
+            success: true,
+            message: "Book saved"
+        })
+    })
+})
+
+// Get all books
+app.get('/books', (req, res) => {
+    Book.find({}, 'title description author rating', function (error, books) {
+      if (error) { console.error(error); }
+      res.send({
+        books: books
+      })
+    }).sort({_id:-1})
+  })
 
 app.listen(process.env.PORT || 8081)
