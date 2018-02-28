@@ -1,23 +1,45 @@
 <template>
   <div class="posts">
-    <h1>Add Book</h1>
-      <div class="form">
-        <div>
-          <input type="text" name="title" placeholder="TITLE" v-model="title">
-        </div>
-        <div>
-          <textarea rows="15" cols="15" placeholder="DESCRIPTION" v-model="description"></textarea>
-        </div>
-        <div>
-          <textarea rows="15" cols="15" placeholder="AUTHOR" v-model="author"></textarea>
-        </div>
-        <div>
-          <textarea rows="15" cols="15" placeholder="RATING" v-model="rating"></textarea>
-        </div>
-        <div>
-          <button class="app_post_btn" @click="addBook">Add</button>
-        </div>
-      </div>
+    <b-container fluid>
+      <b-row>
+        <b-col></b-col>
+        <b-col>
+          <b-form>
+            <b-form-input id="title"
+                          type="text"
+                          v-model="title"
+                          required
+                          placeholder="Book Title">
+            </b-form-input>
+            <br/>
+            <b-form-input id="description"
+                          type="text"
+                          v-model="description"
+                          required
+                          placeholder="Book Description">
+            </b-form-input>
+            <br/>
+            <b-form-input id="author"
+                          type="text"
+                          v-model="author"
+                          required
+                          placeholder="Author">
+            </b-form-input>
+            <br/>
+            <b-form-input id="rating"
+                          type="number"
+                          v-model="rating"
+                          required
+                          placeholder="Book Rating">
+            </b-form-input>
+            <br/>
+            <b-button @click="addBook" variant="primary">Submit</b-button>
+            <b-button type="reset" variant="danger">Reset</b-button>
+          </b-form>
+        </b-col>
+        <b-col></b-col>
+      </b-row>
+    </b-container>
   </div>
 </template>
 
@@ -41,31 +63,10 @@ export default {
         author: this.author,
         rating: this.rating
       })
-      this.$router.push({ name: 'Books' })
+      this.$router.push({ name: 'Home' })
     }
   }
 }
 </script>
 <style type="text/css">
-.form input, .form textarea {
-  width: 500px;
-  padding: 10px;
-  border: 1px solid #e0dede;
-  outline: none;
-  font-size: 12px;
-}
-.form div {
-  margin: 20px;
-}
-.app_post_btn {
-  background: #4d7ef7;
-  color: #fff;
-  padding: 10px 80px;
-  text-transform: uppercase;
-  font-size: 12px;
-  font-weight: bold;
-  width: 520px;
-  border: none;
-  cursor: pointer;
-}
 </style>

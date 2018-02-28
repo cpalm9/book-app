@@ -6,5 +6,11 @@ export default {
     },
     addBook (params) {
         return api().post('book', params)
+    },
+    updateBook(params){
+        return api().put('book/' + params.id, params)
+    },
+    getBook(params) {
+        return api().get('book/' + params.id)
     }
 }

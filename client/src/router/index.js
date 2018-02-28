@@ -1,8 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import HelloWorld from '@/components/HelloWorld'
+import Home from '@/components/Home'
 import Books from '@/components/Books'
 import NewBook from '@/components/NewBook'
+import EditBook from '@/components/EditBook'
 
 
 Vue.use(Router)
@@ -12,7 +13,7 @@ export default new Router({
     {
       path: '/',
       name: 'Home',
-      component: HelloWorld
+      component: Home
     },
     {
       path:'/books',
@@ -24,5 +25,10 @@ export default new Router({
       name: 'NewBook',
       component: NewBook
     },
+    {
+      path: '/books/:id',
+      name: 'EditBook',
+      component: EditBook
+    }
   ]
 })
