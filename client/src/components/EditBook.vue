@@ -1,39 +1,32 @@
 <template>
-  <div class="books">
-    <v-flex xs12 sm6 offset-sm3>
+    <v-flex xs4>
     <v-card>
-      <v-card-title primary-title>
-        <h1>Edit Book</h1>
-      </v-card-title>
-      <v-form v-model="valid" ref="form">
-        <v-text-field
-          label="Title"
-          v-model="title"
-          required
-        ></v-text-field>
-        <v-text-field
-          label="Description"
-          v-model="description"
-          required
-        ></v-text-field>
-        <v-text-field
-          label="Author"
-          v-model="author"
-          required
-        ></v-text-field>
-        <v-text-field
-          label="Rating"
-          v-model="rating"
-          required
-        ></v-text-field>
-        <v-btn @click="updatePost" :disabled="!valid">
-          submit
-        </v-btn>
-        <v-btn @click="clear">clear</v-btn>
-      </v-form>
-    </v-card>
+        <v-card-title>
+          <span class="headline">Edit {{title}}</span>
+        </v-card-title>
+        <v-card-text>
+          <v-container grid-list-md>
+              <v-flex>
+                <v-text-field label="Title" v-model="title" required></v-text-field>
+              </v-flex>
+              <v-flex>
+                <v-text-field label="Description" v-model="description" required></v-text-field>
+              </v-flex>
+              <v-flex>
+                <v-text-field label="Author" v-model="author" required></v-text-field>
+              </v-flex>
+              <v-flex>
+                <v-text-field label="Rating" v-model="rating"></v-text-field>
+              </v-flex>
+          </v-container>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="blue darken-1" flat @click.native="$router.push({name: 'Home'})">Cancel</v-btn>
+          <v-btn color="blue darken-1" flat @click.native="addBook">Save</v-btn>
+        </v-card-actions>
+      </v-card>
     </v-flex>
-  </div>
 </template>
 
 <script>

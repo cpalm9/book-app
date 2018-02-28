@@ -12,5 +12,8 @@ export default {
     },
     getBook(params) {
         return api().get('book/' + params.id)
+    },
+    deleteBook(params) {
+        return api().delete('book/' + params)
     }
 }

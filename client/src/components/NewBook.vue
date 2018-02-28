@@ -1,46 +1,32 @@
 <template>
-  <div class="posts">
-    <b-container fluid>
-      <b-row>
-        <b-col></b-col>
-        <b-col>
-          <b-form>
-            <b-form-input id="title"
-                          type="text"
-                          v-model="title"
-                          required
-                          placeholder="Book Title">
-            </b-form-input>
-            <br/>
-            <b-form-input id="description"
-                          type="text"
-                          v-model="description"
-                          required
-                          placeholder="Book Description">
-            </b-form-input>
-            <br/>
-            <b-form-input id="author"
-                          type="text"
-                          v-model="author"
-                          required
-                          placeholder="Author">
-            </b-form-input>
-            <br/>
-            <b-form-input id="rating"
-                          type="number"
-                          v-model="rating"
-                          required
-                          placeholder="Book Rating">
-            </b-form-input>
-            <br/>
-            <b-button @click="addBook" variant="primary">Submit</b-button>
-            <b-button type="reset" variant="danger">Reset</b-button>
-          </b-form>
-        </b-col>
-        <b-col></b-col>
-      </b-row>
-    </b-container>
-  </div>
+    <v-flex xs4>
+    <v-card>
+        <v-card-title>
+          <span class="headline">Add Book</span>
+        </v-card-title>
+        <v-card-text>
+          <v-container grid-list-md>
+              <v-flex >
+                <v-text-field label="Title" v-model="title" required></v-text-field>
+              </v-flex>
+              <v-flex>
+                <v-text-field label="Description" v-model="description" required></v-text-field>
+              </v-flex>
+              <v-flex>
+                <v-text-field label="Author" v-model="author" required></v-text-field>
+              </v-flex>
+              <v-flex>
+                <v-text-field label="Rating" v-model="rating"></v-text-field>
+              </v-flex>
+          </v-container>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="blue darken-1" flat @click.native="$router.push({name: 'Home'})">Cancel</v-btn>
+          <v-btn color="blue darken-1" flat @click.native="addBook">Save</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-flex>
 </template>
 
 <script>

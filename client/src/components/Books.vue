@@ -1,11 +1,4 @@
 <template>
-  <div class="books">
-    <h1>List of Book Club Books</h1>
-    <div>
-        <router-link :to="{ name: 'NewBook' }" class="">Add Book</router-link>
-    </div>
-    <b-table striped hover :items="books"></b-table>
-  </div>
 </template>
 <script>
 import BookService from "@/services/BookService";
