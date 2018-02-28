@@ -73,4 +73,35 @@ app.get('/books', (req, res) => {
     }).sort({_id:-1})
   })
 
+// Get single book
+app.get('/book/:id', (req, res) =>{
+    var db = req.db;
+    Book.findById(req.params.id, 'title description author rating', function(error, book){
+        if (error){console.log(error)}
+        res.send(book);
+    })
+})
+
+// Update book
+app.put('/book/:id', (req,res) =>{
+    var db = req.db;
+    Book.findById(req.params.id, 'title description author rating', function(err, book){
+        if (err) {
+            console.log(err)
+        }
+        book.title = req.body.title;
+        book.description = req.body.description;
+        book.author = req.body.author;
+        book.rating = req.body.rating;
+
+        book.save(function(err){
+            if(err){
+                console.log(err)
+            }
+            res.send({
+                success: true
+            })
+        })
+    })
+})
 app.listen(process.env.PORT || 8081)
