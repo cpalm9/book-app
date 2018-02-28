@@ -104,4 +104,19 @@ app.put('/book/:id', (req,res) =>{
         })
     })
 })
+
+// Delete Book
+app.delete('/book/:id', (req, res)=>{
+    var db = req.db;
+    Book.remove({
+        _id: req.params.id
+    }, (err, book)=>{
+        if(err){
+            res.send(err)
+        }
+        res.send({
+            success: true
+        })
+    })
+})
 app.listen(process.env.PORT || 8081)
