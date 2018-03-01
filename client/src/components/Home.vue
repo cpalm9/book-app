@@ -36,6 +36,7 @@
     <v-layout row wrap text-xs-center>
       <v-flex xs3>
         <user-component/>
+        <current-reading-list/>
       </v-flex>
       <v-flex xs6>
         <v-card dark color="primary">
@@ -56,6 +57,7 @@
 <script>
 import BookService from "@/services/BookService";
 import UserComponent from './UserComponent.vue';
+import CurrentReadingList from './CurrentReadingList.vue';
 
 export default {
   name: 'Home',
@@ -86,13 +88,18 @@ export default {
   //   }
   // },
   components: {
-    UserComponent
+    UserComponent,
+    CurrentReadingList
   }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+
+.card{
+  margin: 1.5rem;
+}
 /* h1, h2 {
   font-weight: normal;
 }
