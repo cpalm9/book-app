@@ -11,12 +11,8 @@
             hide-headers
         >
             <template slot="items" slot-scope="props">
-            <td>{{ props.item.name }}</td>
-            <td class="text-xs-right">{{ props.item.calories }}</td>
-            <td class="text-xs-right">{{ props.item.fat }}</td>
-            <td class="text-xs-right">{{ props.item.carbs }}</td>
-            <td class="text-xs-right">{{ props.item.protein }}</td>
-            <td class="text-xs-right">{{ props.item.iron }}</td>
+            <td><img :src="props.item.thumbnail"> </td>
+            <td class="text-xs-left">{{ props.item.name }}</td>
             </template>
         </v-data-table> 
     </v-card>
@@ -31,39 +27,23 @@ export default {
         items: [
           {
             value: false,
-            name: 'Frozen Yogurt',
-            calories: 159,
-            fat: 6.0,
-            carbs: 24,
-            protein: 4.0,
-            iron: '1%'
+            name: 'Harry Potter',
+            thumbnail: 'static/images/HarryPotter.jpg',
           },
           {
             value: false,
-            name: 'Ice cream sandwich',
-            calories: 237,
-            fat: 9.0,
-            carbs: 37,
-            protein: 4.3,
-            iron: '1%'
+            name: '1776',
+            thumbnail: 'static/images/1776.jpg',
           },
           {
             value: false,
-            name: 'Eclair',
-            calories: 262,
-            fat: 16.0,
-            carbs: 23,
-            protein: 6.0,
-            iron: '7%'
+            name: 'Insignia',
+            thumbnail: 'static/images/insignia.jpeg',
           },
           {
             value: false,
-            name: 'Cupcake',
-            calories: 305,
-            fat: 3.7,
-            carbs: 67,
-            protein: 4.3,
-            iron: '8%'
+            name: 'Hillbilly Elegy',
+            thumbnail: 'static/images/hillbilly.jpg',
           },
           
         ]
@@ -75,6 +55,16 @@ export default {
 <style scoped>
     h3 {
         font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        padding: 5px;
+    }
+
+    img{
+        max-height: 75px;
+        padding: 5px;
+    }
+
+    table.table tbody td:first-child, table.table tbody td:not(:first-child), table.table tbody th:first-child, table.table tbody th:not(:first-child), table.table thead td:first-child, table.table thead td:not(:first-child), table.table thead th:first-child, table.table thead th:not(:first-child){
+        padding: 0;
     }
 
 </style>
