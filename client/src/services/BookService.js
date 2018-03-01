@@ -15,5 +15,8 @@ export default {
     },
     deleteBook(params) {
         return api().delete('book/' + params)
+    },
+    fetchGoogleBook(params) {
+        return api().get('google/books/'+ params)
     }
 }

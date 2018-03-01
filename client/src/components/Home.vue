@@ -30,6 +30,19 @@
       <v-btn color="primary" :to="{ name: 'NewBook' }">Add
         <v-icon dark right>check_circle</v-icon>
       </v-btn>
+      <v-text-field
+          name="input-1"
+          label="Label Text"
+          v-model="search"
+        ></v-text-field>
+      <v-btn color="danger" @click="fetchGoogleBook">Google!</v-btn>
+    </v-layout>
+    <v-layout>
+      <v-data-table :headers="googleFields" :items="googleBooks" class="elevation-1">
+        <template slot="items" slot-scope="props">
+          <td>{{props.item.volumeInfo.title}}</td>
+        </template>
+      </v-data-table>
     </v-layout>
   </div>
 </template>
@@ -48,7 +61,13 @@ export default {
         { value: 'author', text: 'Author' },
         { value: 'rating', text: 'Rating'},
         { value: 'actions', text: 'Actions'}
-      ]
+      ],
+      googleFields: [
+        { value: 'title', text: 'Title'},
+        { value: 'author', text: 'Author'}
+      ],
+      search: '',
+      googleBooks: ''
     }
   },
   mounted() {
@@ -62,6 +81,11 @@ export default {
     async deleteBook(id) {
       await BookService.deleteBook(id);
       this.getBooks();
+    },
+    async fetchGoogleBook() {
+      var res = await BookService.fetchGoogleBook(this.search);
+      this.googleBooks = res.data.items
+      console.log(this.googleBooks)
     }
   }
 }

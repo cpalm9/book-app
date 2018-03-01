@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
+const request = require('request');
 var Book = require('../models/book');
 
 // DB connection
@@ -75,6 +76,7 @@ app.get('/books', (req, res) => {
 
 // Get single book
 app.get('/book/:id', (req, res) =>{
+    console.log(req.params)
     var db = req.db;
     Book.findById(req.params.id, 'title description author rating', function(error, book){
         if (error){console.log(error)}
@@ -118,5 +120,16 @@ app.delete('/book/:id', (req, res)=>{
             success: true
         })
     })
+})
+
+// Get Google Books
+app.get('/google/books/:q', (req, res)=> {
+    request({
+        uri: 'https://www.googleapis.com/books/v1/volumes',
+        qs: {
+            q: req.params.q,
+            key: ""
+        }
+    }).pipe(res)
 })
 app.listen(process.env.PORT || 8081)
