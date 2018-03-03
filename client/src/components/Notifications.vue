@@ -25,10 +25,19 @@
                         <h4>{{card.username}}</h4>
                     </div>
                     <p style="margin-right: 1.5rem;">{{card.message}}</p>
+                    <v-card-actions style="margin: 0; padding: 0;">
+                        <v-spacer></v-spacer>
+                        <v-badge left color="purple" overlap>
+                            <span slot="badge">{{card.messageLike}}</span>
+                            <v-btn icon>
+                                <v-icon>favorite</v-icon>
+                            </v-btn>
+                        </v-badge>
+                        <v-btn icon>
+                            <v-icon>share</v-icon>
+                        </v-btn>
+                    </v-card-actions>
                 </div>
-              <!-- <v-card-actions>
-                <v-btn flat dark>Listen now</v-btn>
-              </v-card-actions> -->
             </v-card>
           </v-flex>
         </v-layout>
@@ -44,9 +53,9 @@ export default {
   data() {
     return {
         cards: [
-            { avatar: '/static/images/nikola.jpg', username: 'Nikola Tesla', message: 'Aenean lacinia bibendum nulla sed consectetur. Vestibulum id ligula porta felis euismod semper. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.' },
-            { avatar: '/static/images/einstein.jpg', username: 'Einstein', message: 'Aenean lacinia bibendum nulla sed consectetur. Vestibulum id ligula porta felis euismod semper. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.' },
-            { avatar: '/static/images/nikola.jpg', username: 'Nikola Tesla', message: 'Aenean lacinia bibendum nulla sed consectetur. Vestibulum id ligula porta felis euismod semper. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.' },
+            { avatar: '/static/images/nikola.jpg', username: 'Nikola Tesla', message: 'Aenean lacinia bibendum nulla sed consectetur. Vestibulum id ligula porta felis euismod semper. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.', messageLike: 6 },
+            { avatar: '/static/images/einstein.jpg', username: 'Einstein', message: 'Aenean lacinia bibendum nulla sed consectetur. Vestibulum id ligula porta felis euismod semper. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.', messageLike: 23 },
+            { avatar: '/static/images/nikola.jpg', username: 'Nikola Tesla', message: 'Aenean lacinia bibendum nulla sed consectetur. Vestibulum id ligula porta felis euismod semper. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.', messageLike: 19 },
       ]
     };
   },
