@@ -39,9 +39,7 @@
         <current-reading-list/>
       </v-flex>
       <v-flex xs6>
-        <v-card dark color="primary">
-          <v-card-text class="px-0">6</v-card-text>
-        </v-card>
+        <notifications/>
       </v-flex>
       <v-flex xs3>
         <v-card dark color="primary">
@@ -58,6 +56,7 @@
 import BookService from "@/services/BookService";
 import UserComponent from './UserComponent.vue';
 import CurrentReadingList from './CurrentReadingList.vue';
+import Notifications from './Notifications.vue'
 
 export default {
   name: 'Home',
@@ -89,7 +88,8 @@ export default {
   // },
   components: {
     UserComponent,
-    CurrentReadingList
+    CurrentReadingList,
+    Notifications,
   }
 }
 </script>
@@ -99,6 +99,7 @@ export default {
 
 .card{
   margin: 1.5rem;
+  border-radius: .25rem;
 }
 /* h1, h2 {
   font-weight: normal;
