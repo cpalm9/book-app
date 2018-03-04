@@ -1,6 +1,4 @@
 <template>
-  <v-layout row>
-    <v-flex>
       <v-card>
         <v-toolbar color="primary" dark>
           <v-toolbar-title>My Groups</v-toolbar-title>
@@ -17,7 +15,7 @@
             </v-list-tile-content>
             <v-list-tile-action>
               <v-btn icon ripple>
-                <v-icon color="grey lighten-1" @click="">info</v-icon>
+                <v-icon color="yellow darken-1" @click="">info</v-icon>
               </v-btn>
             </v-list-tile-action>
           </v-list-tile>
@@ -28,8 +26,6 @@
           </div>
         </v-list>
       </v-card>
-    </v-flex>
-  </v-layout>
 </template>
 <script>
 

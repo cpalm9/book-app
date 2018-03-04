@@ -43,6 +43,7 @@
       </v-flex>
       <v-flex xs3>
         <group-list/>
+        <suggestions/>
       </v-flex>
     </v-layout>
 
@@ -54,6 +55,9 @@ import UserComponent from './UserComponent.vue';
 import CurrentReadingList from './CurrentReadingList.vue';
 import Notifications from './Notifications.vue';
 import GroupList from './GroupList.vue';
+import Suggestions from './Suggestions.vue';
+
+import { Carousel, Slide } from 'vue-carousel';
 
 export default {
   name: 'Home',
@@ -88,6 +92,10 @@ export default {
     CurrentReadingList,
     Notifications,
     GroupList,
+    Suggestions,
+    Carousel,
+    Slide,
+
   }
 }
 </script>

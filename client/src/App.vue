@@ -48,6 +48,11 @@
 </template>
 
 <script>
+
+import Vue from 'vue';
+import VueCarousel from 'vue-carousel';
+Vue.use(VueCarousel);
+
 export default {
   name: "App",
   data: () => ({
@@ -55,7 +60,8 @@ export default {
     }),
     props: {
       source: String
-    }
+    },
+
 };
 </script>
 
