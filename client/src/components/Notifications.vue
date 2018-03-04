@@ -2,7 +2,7 @@
   <div
     style="margin: 1.5rem"
   >
-    <v-toolbar color="primary">
+    <v-toolbar color="primary" style="border-radius: .25rem;">
       <v-toolbar-title class="white--text">Notifications</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-btn icon>
@@ -81,4 +81,9 @@ export default {
         float: right !important;
         margin-right: 1.5rem;
     }
+
+    .card{
+        border-radius: .25rem;
+    }
+
 </style>

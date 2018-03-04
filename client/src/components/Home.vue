@@ -42,13 +42,9 @@
         <notifications/>
       </v-flex>
       <v-flex xs3>
-        <v-card dark color="primary">
-          <v-card-text class="px-0">3</v-card-text>
-        </v-card>
+        <group-list/>
       </v-flex>
     </v-layout>
-
-  
 
 </template>
 
@@ -56,7 +52,8 @@
 import BookService from "@/services/BookService";
 import UserComponent from './UserComponent.vue';
 import CurrentReadingList from './CurrentReadingList.vue';
-import Notifications from './Notifications.vue'
+import Notifications from './Notifications.vue';
+import GroupList from './GroupList.vue';
 
 export default {
   name: 'Home',
@@ -90,6 +87,7 @@ export default {
     UserComponent,
     CurrentReadingList,
     Notifications,
+    GroupList,
   }
 }
 </script>
@@ -101,18 +99,5 @@ export default {
   margin: 1.5rem;
   border-radius: .25rem;
 }
-/* h1, h2 {
-  font-weight: normal;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-} */
+
 </style>
