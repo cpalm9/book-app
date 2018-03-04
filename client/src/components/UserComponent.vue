@@ -24,7 +24,7 @@
             <li class="bookStats">
                 <a href="#">
                     Groups
-                    <h6 style="margin-bottom:0;">4</h6>
+                    <h6 style="margin-bottom:0;">3</h6>
                 </a>
             </li>
         </ul>
