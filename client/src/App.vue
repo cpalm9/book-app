@@ -3,7 +3,7 @@
     <!-- <img src="./assets/logo.png"> -->
     <v-navigation-drawer fixed v-model="drawer" app>
       <v-list dense>
-        <v-list-tile @click="">
+        <v-list-tile href="/#/" @click="">
           <v-list-tile-action>
             <v-icon>home</v-icon>
           </v-list-tile-action>
@@ -13,15 +13,23 @@
         </v-list-tile>
         <v-list-tile @click="">
           <v-list-tile-action>
-            <v-icon>contact_mail</v-icon>
+            <v-icon>group</v-icon>
           </v-list-tile-action>
           <v-list-tile-content>
-            <v-list-tile-title>Contact</v-list-tile-title>
+            <v-list-tile-title>Groups</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+        <v-list-tile @click="">
+          <v-list-tile-action>
+            <v-icon>settings</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title>Settings</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
       </v-list>
     </v-navigation-drawer>
-    <v-toolbar color="indigo" dark fixed app>
+    <v-toolbar style="background-color: #2660A4" dark fixed app>
       <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
       <v-toolbar-title>Book App</v-toolbar-title>
     </v-toolbar>
@@ -32,7 +40,7 @@
         </v-layout>
       </v-container>
     </v-content>
-    <v-footer color="indigo" app>
+    <v-footer style="background-color: #2660A4" app>
       <span class="white--text">&copy; {{ new Date().getFullYear() }}</span>
     </v-footer>
     <!-- <router-view/> -->
@@ -40,6 +48,11 @@
 </template>
 
 <script>
+
+import Vue from 'vue';
+import VueCarousel from 'vue-carousel';
+Vue.use(VueCarousel);
+
 export default {
   name: "App",
   data: () => ({
@@ -47,7 +60,8 @@ export default {
     }),
     props: {
       source: String
-    }
+    },
+
 };
 </script>
 

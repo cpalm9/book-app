@@ -49,7 +49,7 @@ export default {
         author: this.author,
         rating: this.rating
       })
-      this.$router.push({ name: 'Home' })
+      this.$router.push({ name: 'Books' })
     }
   }
 }
