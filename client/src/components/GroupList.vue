@@ -1,6 +1,6 @@
 <template>
       <v-card>
-        <v-toolbar color="primary" dark>
+        <v-toolbar style="background-color: #E8AB3C;" dark>
           <v-toolbar-title>My Groups</v-toolbar-title>
           <v-spacer></v-spacer>
         </v-toolbar>
@@ -15,14 +15,14 @@
             </v-list-tile-content>
             <v-list-tile-action>
               <v-btn icon ripple>
-                <v-icon color="yellow darken-1" @click="">info</v-icon>
+                <v-icon style="color: #0B3C5D;" @click="">info</v-icon>
               </v-btn>
             </v-list-tile-action>
           </v-list-tile>
           <v-divider inset></v-divider>
           <div>
-            <v-btn small color="blue-grey" dark>Join</v-btn>
-            <v-btn small color="cyan" dark>Create</v-btn>
+            <v-btn small style="background-color: #0B3C5D;" dark>Join</v-btn>
+            <v-btn small style="background-color: #FF6B35;" dark>Create</v-btn>
           </div>
         </v-list>
       </v-card>

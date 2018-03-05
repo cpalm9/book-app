@@ -2,7 +2,7 @@
   <div
     style="margin: 1.5rem"
   >
-    <v-toolbar color="primary" style="border-radius: .25rem;">
+    <v-toolbar style="border-radius: .25rem; background-color: #E8AB3C;">
       <v-toolbar-title class="white--text">Notifications</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-btn icon>
@@ -27,7 +27,7 @@
                     <p style="margin-right: 1.5rem;">{{card.message}}</p>
                     <v-card-actions style="margin: 0; padding: 0;">
                         <v-spacer></v-spacer>
-                        <v-badge left color="purple" overlap>
+                        <v-badge left color="red" overlap>
                             <span slot="badge">{{card.messageLike}}</span>
                             <v-btn icon>
                                 <v-icon>favorite</v-icon>

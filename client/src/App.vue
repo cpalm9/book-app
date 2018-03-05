@@ -29,7 +29,7 @@
         </v-list-tile>
       </v-list>
     </v-navigation-drawer>
-    <v-toolbar color="light-blue lighten-1" dark fixed app>
+    <v-toolbar style="background-color: #2660A4" dark fixed app>
       <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
       <v-toolbar-title>Book App</v-toolbar-title>
     </v-toolbar>
@@ -40,7 +40,7 @@
         </v-layout>
       </v-container>
     </v-content>
-    <v-footer color="light-blue lighten-1" app>
+    <v-footer style="background-color: #2660A4" app>
       <span class="white--text">&copy; {{ new Date().getFullYear() }}</span>
     </v-footer>
     <!-- <router-view/> -->
