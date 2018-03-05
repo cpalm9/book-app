@@ -3,7 +3,7 @@
     <!-- <img src="./assets/logo.png"> -->
     <v-navigation-drawer fixed v-model="drawer" app>
       <v-list dense>
-        <v-list-tile @click="">
+        <v-list-tile href="/#/" @click="">
           <v-list-tile-action>
             <v-icon>home</v-icon>
           </v-list-tile-action>

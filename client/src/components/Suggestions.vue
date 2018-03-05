@@ -6,7 +6,9 @@
         </div>
         <carousel>
             <slide v-for="item in items">
-                <img :src=item.src alt="">
+                <a href="">
+                    <img :src=item.src alt="">
+                </a>
             </slide>
         </carousel>
     </v-card>
