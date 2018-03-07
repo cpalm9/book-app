@@ -4,7 +4,6 @@ const cors = require('cors');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 const routes = require('../routes/index');
-var Book = require('../models/book');
 
 // DB connection
 mongoose.connect('mongodb://localhost:27017/books');

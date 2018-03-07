@@ -1,6 +1,7 @@
 const request = require('request');
 const bookController = require('../controllers/book-controller');
 const googleBooks = require('../controllers/google-books');
+const userController = require('../controllers/user-controller');
 module.exports = function(app){
     // Create a book
     app.post('/book', bookController.createBook);
@@ -19,4 +20,10 @@ module.exports = function(app){
     
     // Get Google Books
     app.get('/google/books/:q', googleBooks.searchGoogleBooks);
+
+    // Create User
+    app.post('/user', userController.createUser);
+
+    // Get Users
+    app.get('/users', userController.getUsers);
 }
