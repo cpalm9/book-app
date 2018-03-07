@@ -1,4 +1,5 @@
 <template>
+<<<<<<< HEAD
     <v-layout row wrap text-xs-center>
       <v-flex xs3>
         <user-component/>
@@ -11,6 +12,52 @@
         <group-list/>
         <suggestions/>
       </v-flex>
+=======
+  <div id="home">
+    <v-jumbotron color="grey lighten-2">
+      <v-container fill-height>
+        <v-layout align-center>
+          <v-flex>
+            <h3 class="display-3">{{msg}}</h3>
+            <span class="subheading">Lorem ipsum dolor sit amet, pri veniam forensibus id. Vis maluisset molestiae id, ad semper lobortis cum. At impetus detraxit incorrupte usu, repudiare assueverit ex eum, ne nam essent vocent admodum.</span>
+          </v-flex>
+        </v-layout>
+      </v-container>
+    </v-jumbotron>
+    <v-data-table :headers="fields" :items="items" class="elevation-1">
+      <template slot="items" slot-scope="props">
+        <td class="text-xs-left">{{props.item.title}}</td>
+        <td class="text-xs-left">{{ props.item.description }}</td>
+        <td class="text-xs-left">{{ props.item.author }}</td>
+        <td class="text-xs-left">{{ props.item.rating }}</td>
+        <td class="justify-left layout px-0">
+          <v-btn icon class="mx-0" :to="{ name: 'EditBook', params: { id: props.item._id }}">
+            <v-icon color="teal">edit</v-icon>
+          </v-btn>
+          <v-btn icon class="mx-0" @click="deleteBook(props.item._id)">
+            <v-icon color="pink">delete</v-icon>
+          </v-btn>
+        </td>
+      </template>
+    </v-data-table>
+    <v-layout align-left>
+      <v-btn color="primary" :to="{ name: 'NewBook' }">Add
+        <v-icon dark right>check_circle</v-icon>
+      </v-btn>
+      <v-text-field
+          name="input-1"
+          label="Label Text"
+          v-model="search"
+        ></v-text-field>
+      <v-btn color="danger" @click="fetchGoogleBook">Google!</v-btn>
+    </v-layout>
+    <v-layout>
+      <v-data-table :headers="googleFields" :items="googleBooks" class="elevation-1">
+        <template slot="items" slot-scope="props">
+          <td>{{props.item.volumeInfo.title}}</td>
+        </template>
+      </v-data-table>
+>>>>>>> googleBooks
     </v-layout>
 </template>
 
