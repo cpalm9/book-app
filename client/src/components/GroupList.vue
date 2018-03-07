@@ -21,26 +21,33 @@
           </v-list-tile>
           <v-divider inset></v-divider>
           <div>
-            <v-btn small style="background-color: #0B3C5D;" dark>Join</v-btn>
-            <v-btn small style="background-color: #FF6B35;" dark>Create</v-btn>
+            <create-group-dialog/>
+            <join-group-dialog/>
           </div>
         </v-list>
       </v-card>
 </template>
 <script>
 
+import CreateGroupDialog from './CreateGroupDialog.vue';
+import JoinGroupDialog from './JoinGroupDialog.vue';
+
 export default {
   name: "GroupList",
   data() {
     return {
-        items: [
-          { groupName: 'Group 1', numMembers: '34' },
-          { groupName: 'Group 2', numMembers: '2383' },
-          { groupName: 'Group 3', numMembers: '123' },
-        ],
-      };
+      items: [
+        { groupName: 'Group 1', numMembers: '34' },
+        { groupName: 'Group 2', numMembers: '2383' },
+        { groupName: 'Group 3', numMembers: '123' },
+      ]
+    }
   },
-};
+  components: {
+      CreateGroupDialog,
+      JoinGroupDialog,
+  }
+}
 </script>
 
 <style scoped>

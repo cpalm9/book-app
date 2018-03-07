@@ -1,0 +1,57 @@
+<template>
+    <v-dialog v-model="dialog" persistent max-width="500px">
+      <v-btn style="background-color: #0B3C5D;" dark slot="activator">Create</v-btn>
+      <v-card>
+        <v-card-title>
+          <span class="headline" style="color: #2660A4;">Create New Group</span>
+        </v-card-title>
+        <v-card-text>
+          <v-container grid-list-md>
+            <v-layout wrap>
+              <v-flex xs12>
+                <v-text-field label="Group Name" required></v-text-field>
+              </v-flex>
+              <v-flex xs12>
+                  <v-text-field label="Description" multi-line required></v-text-field>
+                <!-- <v-text-field label="Description" multiline required></v-text-field> -->
+              </v-flex>
+              <v-flex v-if="switch1" xs12>
+                <v-switch :label="`Private Group`" v-model="switch1"></v-switch>
+              </v-flex>
+              <v-flex v-else xs12>
+                <v-switch :label="`Public Group`" v-model="switch1"></v-switch>
+              </v-flex>
+              <v-flex v-show="switch1" xs12>
+                <v-text-field label="Password" type="password" required></v-text-field>
+              </v-flex>
+              <v-flex xs12 sm6>
+                <v-select
+                  label="Interests"
+                  multiple
+                  autocomplete
+                  chips
+                  :items="['Art', 'Biography', 'Business', 'Childrens', 'Christian', 'Classics', 'Comics', 'Crime', 'Fantasy', 'Fiction', 'History', 'Horror', 'Humor', 'Music', 'Mystery', 'NonFiction', 'Philosophy', 'Poetry', 'Political', 'Psychology', 'Religion', 'Romance', 'Science', 'Science Fiction', 'Self Help', 'Sports', 'Thriller', 'Travel', 'Young Adult']"
+                ></v-select>
+              </v-flex>
+            </v-layout>
+          </v-container>
+          <small>*indicates required field</small>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="blue darken-1" flat @click.native="dialog = false">Close</v-btn>
+          <v-btn color="blue darken-1" flat @click.native="dialog = false">Save</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+</template>
+
+<script>
+  export default {
+    data: () => ({
+      dialog: false,
+      switch1: false,
+    })
+  }
+</script>
+
