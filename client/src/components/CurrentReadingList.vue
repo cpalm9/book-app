@@ -1,31 +1,32 @@
 <template>
-    <v-card>
-        <div class="text-center">
-            <h3>Current Reading List</h3>
-        </div>
-        <v-list two-line>
-          <template v-for="(item, index) in items" >
-            <v-divider :key="item.title"></v-divider>
-            <v-list-tile avatar  @click="dialog = true, tileIndex = index" :key="item.title">
-              <v-list-tile-avatar>
-                <img :src="item.thumbnail">
-              </v-list-tile-avatar>
-              <v-list-tile-content>
-                <v-list-tile-title v-html="item.name"></v-list-tile-title>
-                <v-list-tile-sub-title v-html="item.author"></v-list-tile-sub-title>
-              </v-list-tile-content>
-            </v-list-tile>
-            <v-dialog v-model="dialog" max-width="500" :key="item.title">
-              <v-card class="text-xs-center">
-                <v-card-title class="headline">{{items[tileIndex].name}}</v-card-title>
-                <img style="max-height: 200px;" :src="items[tileIndex].thumbnail">
-                <v-card-text>{{items[tileIndex].author}}</v-card-text>
-              </v-card>
-            </v-dialog>
-          </template>
-        </v-list>
-    </v-card>
+  <v-card>
+      <div class="text-center">
+          <h3>Current Reading List</h3>
+      </div>
+      <v-list two-line>
+        <template v-for="(item, index) in items" >
+          <v-divider :key="item.title"></v-divider>
+          <v-list-tile avatar  @click="dialog = true, tileIndex = index" :key="item.title">
+            <v-list-tile-avatar>
+              <img :src="item.thumbnail">
+            </v-list-tile-avatar>
+            <v-list-tile-content>
+              <v-list-tile-title v-html="item.name"></v-list-tile-title>
+              <v-list-tile-sub-title v-html="item.author"></v-list-tile-sub-title>
+            </v-list-tile-content>
+          </v-list-tile>
+          <!-- <v-dialog v-model="dialog" max-width="500" :key="item.title">
+            <v-card class="text-xs-center">
+              <v-card-title class="headline">{{items[tileIndex].name}}</v-card-title>
+              <img style="max-height: 200px;" :src="items[tileIndex].thumbnail">
+              <v-card-text>{{items[tileIndex].author}}</v-card-text>
+            </v-card>
+          </v-dialog> -->
+        </template>
+      </v-list>
+  </v-card>
 </template>
+
 <script>
 
 export default {
