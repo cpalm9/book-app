@@ -9,10 +9,10 @@
           <v-container grid-list-md>
             <v-layout wrap>
               <v-flex xs12>
-                <v-text-field label="Group Name" required></v-text-field>
+                <v-text-field label="Group Name" v-model="name" required></v-text-field>
               </v-flex>
               <v-flex xs12>
-                  <v-text-field label="Description" multi-line required></v-text-field>
+                  <v-text-field label="Description" multi-line v-model="description" required></v-text-field>
                 <!-- <v-text-field label="Description" multiline required></v-text-field> -->
               </v-flex>
               <v-flex v-if="switch1" xs12>
@@ -22,7 +22,7 @@
                 <v-switch :label="`Public Group`" v-model="switch1"></v-switch>
               </v-flex>
               <v-flex v-show="switch1" xs12>
-                <v-text-field label="Password" type="password" required></v-text-field>
+                <v-text-field label="Password" type="password" required v-model="password"></v-text-field>
               </v-flex>
               <v-flex xs12 sm6>
                 <v-select
@@ -40,18 +40,40 @@
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn color="blue darken-1" flat @click.native="dialog = false">Close</v-btn>
-          <v-btn color="blue darken-1" flat @click.native="dialog = false">Save</v-btn>
+          <v-btn color="blue darken-1" flat @click.native="addGroup">Save</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
 </template>
 
 <script>
+import GroupService from '@/services/GroupService'
   export default {
-    data: () => ({
-      dialog: false,
-      switch1: false,
-    })
+    data () {
+      return {
+        dialog: false,
+        switch1: false,
+        name: '',
+        description: '',
+        public: true,
+        password: '',
+        interests: [],
+        members: []
+      }
+    },
+    methods: {
+      async addGroup () {
+        await GroupService.addGroup({
+          name: this.name,
+          description: this.description,
+          public: true,
+          password: this.password,
+          interests: [],
+          members: []
+        })
+        this.dialog = false;
+      }
+    }
   }
 </script>
 

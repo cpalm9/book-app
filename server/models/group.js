@@ -3,7 +3,11 @@ var Schema = mongoose.Schema;
 
 var GroupSchema = new Schema({
     name: String,
-    members: [{type:mongoose.Schema.Types.ObjectId, ref: 'User'}]
+    description: String,
+    public: Boolean,
+    password: String,
+    interests: [String],
+    members: [{type:mongoose.Schema.Types.String, ref: 'User'}]
   });
 
 var Group = mongoose.model("Group", GroupSchema);
