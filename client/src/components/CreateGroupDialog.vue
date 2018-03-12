@@ -1,5 +1,5 @@
 <template>
-    <v-dialog v-model="dialog" persistent max-width="500px">
+    <v-dialog v-model="dialog" max-width="500px">
       <v-btn style="background-color: #0B3C5D;" dark slot="activator">Create</v-btn>
       <v-card>
         <v-card-title>

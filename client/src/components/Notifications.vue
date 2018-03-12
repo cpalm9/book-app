@@ -5,9 +5,9 @@
     <v-toolbar style="border-radius: .25rem; background-color: #E8AB3C;">
       <v-toolbar-title class="white--text">Notifications</v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn icon>
-        <v-icon>search</v-icon>
-      </v-btn>
+      <div>
+      <add-comment-dialog/>
+      </div>
     </v-toolbar>
     <v-card>
       <v-container
@@ -17,7 +17,7 @@
       >
         <v-layout row wrap>
           <v-flex v-for="card in cards">
-            <v-card style="text-align: left; overflow: hidden;">
+            <v-card style="text-align: left; overflow: hidden;" >
                 <img id="userPic" :src="card.avatar">
                 <div id="textStuff">
                     <div id="textHead">
@@ -48,6 +48,8 @@
 
 <script>
 
+import AddCommentDialog from './AddCommentDialog.vue';
+
 export default {
   name: "Notifications",
   data() {
@@ -57,8 +59,11 @@ export default {
             { avatar: '/static/images/einstein.jpg', username: 'Einstein', message: 'Aenean lacinia bibendum nulla sed consectetur. Vestibulum id ligula porta felis euismod semper. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.', messageLike: 23 },
             { avatar: '/static/images/nikola.jpg', username: 'Nikola Tesla', message: 'Aenean lacinia bibendum nulla sed consectetur. Vestibulum id ligula porta felis euismod semper. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.', messageLike: 19 },
       ]
-    };
+    }
   },
+  components: {
+      AddCommentDialog,
+  }
 };
 </script>
 
