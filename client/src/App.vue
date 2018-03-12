@@ -1,37 +1,14 @@
 <template>
   <v-app id="inspire">
-    <!-- <img src="./assets/logo.png"> -->
-    <v-navigation-drawer fixed v-model="drawer" app>
-      <v-list dense>
-        <v-list-tile href="/#/" @click="">
-          <v-list-tile-action>
-            <v-icon>home</v-icon>
-          </v-list-tile-action>
-          <v-list-tile-content>
-            <v-list-tile-title>Home</v-list-tile-title>
-          </v-list-tile-content>
-        </v-list-tile>
-        <v-list-tile @click="">
-          <v-list-tile-action>
-            <v-icon>group</v-icon>
-          </v-list-tile-action>
-          <v-list-tile-content>
-            <v-list-tile-title>Groups</v-list-tile-title>
-          </v-list-tile-content>
-        </v-list-tile>
-        <v-list-tile @click="">
-          <v-list-tile-action>
-            <v-icon>settings</v-icon>
-          </v-list-tile-action>
-          <v-list-tile-content>
-            <v-list-tile-title>Settings</v-list-tile-title>
-          </v-list-tile-content>
-        </v-list-tile>
-      </v-list>
-    </v-navigation-drawer>
     <v-toolbar style="background-color: #2660A4" dark fixed app>
-      <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
-      <v-toolbar-title>Book App</v-toolbar-title>
+      <v-toolbar-title><a href="/#/"><img id="appLogo" src="static/images/logo.png"></a></v-toolbar-title>
+      <v-toolbar-items class="hidden-sm-and-down">
+        <v-btn flat href="/#/">Home</v-btn>
+        <v-btn flat>Profile</v-btn>
+        <v-btn flat>Settings</v-btn>
+      </v-toolbar-items>
+      <v-spacer></v-spacer>
+      <v-text-field light solo append-icon="search" placeholder="Search books..."></v-text-field>
     </v-toolbar>
     <v-content>
       <v-container fluid fill-height>
@@ -73,4 +50,10 @@ export default {
   text-align: center;
   margin-top: 60px;
 }
+
+#appLogo{
+  height: 50px;
+  margin-top: 5px;
+}
+
 </style>

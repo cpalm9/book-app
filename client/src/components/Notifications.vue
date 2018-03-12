@@ -29,7 +29,7 @@
                         <v-spacer></v-spacer>
                         <v-badge left color="red" overlap>
                             <span slot="badge">{{card.messageLike}}</span>
-                            <v-btn icon>
+                            <v-btn icon @click="card.messageLike += 1">
                                 <v-icon>favorite</v-icon>
                             </v-btn>
                         </v-badge>
