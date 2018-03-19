@@ -4,6 +4,8 @@ const cors = require('cors');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 const routes = require('../routes/index');
+const jwt = require('jsonwebtoken');
+const config = require('../config');
 
 // DB connection
 mongoose.connect('mongodb://localhost:27017/books');
@@ -17,17 +19,8 @@ const app = express();
 app.use(morgan('combined'));
 app.use(bodyParser.json());
 app.use(cors());
+app.set('superSecret', config.secret)
 
 routes(app);
 
-// Get Google Books
-app.get('/google/books/:q', (req, res)=> {
-    request({
-        uri: 'https://www.googleapis.com/books/v1/volumes',
-        qs: {
-            q: req.params.q,
-            key: "AIzaSyDUv2e-2GaJ-7wiVn7NQcJ1F3od2CGSDXs"
-        }
-    }).pipe(res)
-})
 app.listen(process.env.PORT || 8081)

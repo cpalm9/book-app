@@ -6,6 +6,8 @@
         <v-btn flat href="/#/">Home</v-btn>
         <v-btn flat>Profile</v-btn>
         <v-btn flat>Settings</v-btn>
+        <v-btn flat @click="dialog = true">Login</v-btn>
+        <Login :loginDialog="dialog"></Login>
       </v-toolbar-items>
       <v-spacer></v-spacer>
       <v-text-field light solo append-icon="search" placeholder="Search books..."></v-text-field>
@@ -28,16 +30,21 @@
 
 import Vue from 'vue';
 import VueCarousel from 'vue-carousel';
+import Login from './components/Login.vue'
 Vue.use(VueCarousel);
 
 export default {
   name: "App",
   data: () => ({
-      drawer: null
+      drawer: null,
+      dialog: false
     }),
     props: {
-      source: String
+      source: String,
     },
+  components: {
+    Login
+  }
 
 };
 </script>
