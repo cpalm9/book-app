@@ -16,7 +16,7 @@
         grid-list-lg
       >
         <v-layout row wrap>
-          <v-flex v-for="card in cards">
+          <v-flex v-for="card in cards" :key="card.id">
             <v-card style="text-align: left; overflow: hidden;" >
                 <img id="userPic" :src="card.avatar">
                 <div id="textStuff">
