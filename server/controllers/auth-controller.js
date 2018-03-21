@@ -20,7 +20,7 @@ exports.register = (req,res) => {
     });
     res.send({
       status: 200,
-      token: token
+      user: user
     })
   })
 }
@@ -32,13 +32,16 @@ exports.login = (req,res) => {
 
     // var validPassword = bcrypt.compareSync(req.body.password, user.password);
     // if (!validPassword) return res.send({status: 401, token: ''})
-    console.log(user.password, req.body.password)
     if (user.password !== req.body.password) return res.send({status: 401, token: ''})
     var token = jwt.sign({id: user._id }, config.secret, {
       expiresIn: 86400
     })
-    console.log(token)
-    res.send({status: 200, token: token})
+    var userInfo = {
+      name: user.name,
+      username: user.username,
+      groups: user.groups
+    }
+    res.send({status: 200, token: token, user: userInfo})
   })
 }
 
