@@ -9,6 +9,7 @@ export const AUTH_REGISTER = 'AUTH_REGISTER'
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
+import createPersistedState from 'vuex-persistedstate'
 
 Vue.use(Vuex)
 
@@ -18,13 +19,16 @@ if (token) {
 }
 
 export default new Vuex.Store({
+  plugins: [createPersistedState()],
   state: {
     token: localStorage.getItem('user-token') || '',
-    status: ''
+    status: '',
+    user: ''
   },
   getters: {
     isAuthenticated: state => !!state.token,
-    authStatus: state => state.status
+    authStatus: state => state.status,
+    getUser: state => state.user
   },
   actions: {
     [AUTH_REQUEST]: ({commit, dispatch}, user) => {
@@ -33,12 +37,17 @@ export default new Vuex.Store({
         axios({url: 'http://localhost:8081/login', data: user, method: 'POST' })
           .then(resp => {
             var token = resp.data.token
+            var user = resp.data.user
+            console.log(user)
             if (!token){
               commit(AUTH_ERROR)
             }
             else{
               localStorage.setItem('user-token', token) // store the token in localstorage
-              commit(AUTH_SUCCESS, token)
+              commit(AUTH_SUCCESS, {
+                token: token,
+                user: user
+              })
               // you have your token, now log in your user :)
               // dispatch(USER_REQUEST)
               resolve(resp)
@@ -63,12 +72,11 @@ export default new Vuex.Store({
         commit(AUTH_REQUEST)
         axios({url: 'http://localhost:8081/register', data: user, method: 'POST'})
         .then(res => {
-          var token = res.data.token
-          if (!token) {
+          var user = res.data.user
+          if (!user) {
             commit(AUTH_ERROR)
           }
           else {
-            localStorage.setItem('user-token', token)
             commit(AUTH_REGISTER)
             resolve(res)
           }
@@ -85,16 +93,18 @@ export default new Vuex.Store({
     [AUTH_REQUEST]: (state) => {
       state.status = 'loading'
     },
-    [AUTH_SUCCESS]: (state, token) => {
+    [AUTH_SUCCESS]: (state, payload) => {
       state.status = 'success'
-      state.token = token
+      state.token = payload.token
+      state.user = payload.user
     },
     [AUTH_ERROR]: (state) => {
       state.status = 'error'
     },
     [AUTH_LOGOUT]: (state, token) => {
       state.token = '',
-      state.status = ''
+      state.status = '',
+      state.user = ''
     },
     [AUTH_REGISTER]: (state) => {
       state.status = 'registered'
