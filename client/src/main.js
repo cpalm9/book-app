@@ -5,6 +5,8 @@ import App from './App'
 import router from './router'
 import Vuetify from 'vuetify'
 
+export const bus = new Vue()
+
 Vue.use(Vuetify)
 
 

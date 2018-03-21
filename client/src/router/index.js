@@ -4,6 +4,7 @@ import Home from '@/components/Home'
 import Books from '@/components/Books'
 import NewBook from '@/components/NewBook'
 import EditBook from '@/components/EditBook'
+import Group from '@/components/Group'
 
 
 Vue.use(Router)
@@ -29,6 +30,11 @@ export default new Router({
       path: '/books/:id',
       name: 'EditBook',
       component: EditBook
-    }
+    },
+    {
+      path: '/group/:id',
+      name: 'Group',
+      component: Group
+    },
   ]
 })

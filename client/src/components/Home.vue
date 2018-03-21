@@ -47,7 +47,7 @@ export default {
 <style scoped>
 
 .card{
-  margin: 1.5rem;
+  margin: 1.0rem;
   border-radius: .25rem;
 }
 

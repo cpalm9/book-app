@@ -13,7 +13,6 @@
               </v-flex>
               <v-flex xs12>
                   <v-text-field label="Description" multi-line v-model="description" required></v-text-field>
-                <!-- <v-text-field label="Description" multiline required></v-text-field> -->
               </v-flex>
               <v-flex v-if="switch1" xs12>
                 <v-switch :label="`Private Group`" v-model="switch1"></v-switch>

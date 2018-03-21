@@ -3,9 +3,21 @@
     <v-toolbar style="background-color: #2660A4" dark fixed app>
       <v-toolbar-title><a href="/#/"><img id="appLogo" src="static/images/logo.png"></a></v-toolbar-title>
       <v-toolbar-items class="hidden-sm-and-down">
-        <v-btn flat href="/#/">Home</v-btn>
-        <v-btn flat>Profile</v-btn>
+        <v-btn flat @click="$router.push({name: 'Home'})">Home</v-btn>
+        <!-- <v-btn flat>Profile</v-btn> -->
         <v-btn flat>Settings</v-btn>
+        <!-- <login-dialog/> -->
+        <v-menu offset-y>
+          <v-btn flat dark slot="activator">Account</v-btn>
+          <v-list>
+            <v-list-tile @click="">
+              <v-list-tile-title>Signup</v-list-tile-title>
+            </v-list-tile>
+            <v-list-tile @click="">
+              <v-list-tile-title>Login</v-list-tile-title>
+            </v-list-tile>
+          </v-list>
+        </v-menu>
       </v-toolbar-items>
       <v-spacer></v-spacer>
       <v-text-field light solo append-icon="search" placeholder="Search books..."></v-text-field>
@@ -25,10 +37,11 @@
 </template>
 
 <script>
-
 import Vue from 'vue';
 import VueCarousel from 'vue-carousel';
 Vue.use(VueCarousel);
+
+import LoginDialog from './components/LoginDialog.vue';
 
 export default {
   name: "App",
@@ -38,6 +51,9 @@ export default {
     props: {
       source: String
     },
+    components: {
+      LoginDialog,
+    }
 
 };
 </script>
