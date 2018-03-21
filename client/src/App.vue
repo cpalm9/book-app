@@ -3,12 +3,14 @@
     <v-toolbar style="background-color: #2660A4" dark fixed app>
       <v-toolbar-title><a href="/#/"><img id="appLogo" src="static/images/logo.png"></a></v-toolbar-title>
       <v-toolbar-items class="hidden-sm-and-down">
-        <v-btn flat href="/#/">Home</v-btn>
-        <v-btn flat>Profile</v-btn>
-        <v-btn flat>Settings</v-btn>
+        <v-btn flat :to="$router.push({name: 'Home'})" v-if="$store.state.token">Home</v-btn>
+        <v-btn flat v-if="$store.state.token">Profile</v-btn>
+        <v-btn flat v-if="$store.state.token">Settings</v-btn>
+        <v-btn flat v-if="$store.state.token" @click="logout">Logout</v-btn>
+        <v-btn flat v-else @click="$router.push({name: 'Login'})">Login</v-btn>
       </v-toolbar-items>
       <v-spacer></v-spacer>
-      <v-text-field light solo append-icon="search" placeholder="Search books..."></v-text-field>
+      <v-text-field v-if="$store.state.token" light solo append-icon="search" placeholder="Search books..."></v-text-field>
     </v-toolbar>
     <v-content>
       <v-container fluid fill-height>
@@ -28,6 +30,7 @@
 
 import Vue from 'vue';
 import VueCarousel from 'vue-carousel';
+import {AUTH_LOGOUT} from './store'
 Vue.use(VueCarousel);
 
 export default {
@@ -38,6 +41,14 @@ export default {
     props: {
       source: String
     },
+    methods: {
+      logout: function () {
+      this.$store.dispatch(AUTH_LOGOUT)
+      .then(() => {
+        this.$router.push({name: 'Login'})
+      })
+    }
+  }
 
 };
 </script>

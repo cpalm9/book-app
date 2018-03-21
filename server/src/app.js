@@ -19,15 +19,4 @@ app.use(bodyParser.json());
 app.use(cors());
 
 routes(app);
-
-// Get Google Books
-app.get('/google/books/:q', (req, res)=> {
-    request({
-        uri: 'https://www.googleapis.com/books/v1/volumes',
-        qs: {
-            q: req.params.q,
-            key: "AIzaSyDUv2e-2GaJ-7wiVn7NQcJ1F3od2CGSDXs"
-        }
-    }).pipe(res)
-})
 app.listen(process.env.PORT || 8081)
