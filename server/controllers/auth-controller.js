@@ -13,7 +13,7 @@ exports.register = (req,res) => {
   User.create({
     name: name,
     username: username,
-    password: password
+    password: hashedPassword
   }, (err, user) => {
     var token = jwt.sign({id: user._id}, config.secret, {
       expiresIn: 86400
@@ -30,9 +30,9 @@ exports.login = (req,res) => {
     if(err) return res.send({status: 500, message: 'Not found'})
     if(!user) return res.send({status: 404, message: 'Not Found'})
 
-    // var validPassword = bcrypt.compareSync(req.body.password, user.password);
-    // if (!validPassword) return res.send({status: 401, token: ''})
-    if (user.password !== req.body.password) return res.send({status: 401, token: ''})
+    var validPassword = bcrypt.compareSync(req.body.password, user.password);
+    if (!validPassword) return res.send({status: 401, token: ''})
+    // if (user.password !== req.body.password) return res.send({status: 401, token: ''})
     var token = jwt.sign({id: user._id }, config.secret, {
       expiresIn: 86400
     })
