@@ -15,7 +15,7 @@
             </v-list-tile-content>
             <v-list-tile-action>
               <v-btn icon ripple>
-                <v-icon style="color: #0B3C5D;" @click="">info</v-icon>
+                <v-icon style="color: #0B3C5D;">info</v-icon>
               </v-btn>
             </v-list-tile-action>
           </v-list-tile>

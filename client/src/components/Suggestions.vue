@@ -5,7 +5,7 @@
             <h3>Recommendations</h3>
         </div>
         <carousel>
-            <slide v-for="item in items">
+            <slide v-for="item in items":key="item.id">
                 <a href="">
                     <img :src=item.src alt="">
                 </a>

@@ -6,7 +6,7 @@
         <v-card-title primary-title>
             <div>
                 <img class="userPic" src="static/images/einstein.jpg">
-                <h6 class="headline mb-0">Albert Einstein</h6>
+                <h6 class="headline mb-0">{{name}}</h6>
                 <div>Random facts about why I love books and why I am on this site!</div>
             </div>
         </v-card-title>
@@ -37,7 +37,7 @@ export default {
   name: "UserComponent",
   data() {
     return {
-      
+      name: this.$store.state.user.name
     };
   },
 };
