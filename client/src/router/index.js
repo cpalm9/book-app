@@ -55,7 +55,8 @@ export default new Router({
     {
       path: '/group/:id',
       name: 'Group',
-      component: Group
+      component: Group,
+      beforeEnter: ifAuthenticated,
     },
     {
       path: '/auth',

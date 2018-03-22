@@ -32,8 +32,6 @@ import VueCarousel from 'vue-carousel';
 import {AUTH_LOGOUT} from './store'
 Vue.use(VueCarousel);
 
-import LoginDialog from './components/LoginDialog.vue';
-
 export default {
   name: "App",
   data: () => ({
