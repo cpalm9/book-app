@@ -6,9 +6,18 @@ import NewBook from '@/components/NewBook'
 import EditBook from '@/components/EditBook'
 import Login from '@/components/Login'
 import Group from '@/components/Group'
+import store from '../store'
 
 
 Vue.use(Router)
+
+const ifAuthenticated = (to, from, next) => {
+  if (store.getters.isAuthenticated) {
+    next()
+    return
+  }
+  next('/auth')
+}
 
 export default new Router({
   routes: [
@@ -20,7 +29,8 @@ export default new Router({
     {
       path:'/books',
       name: 'Books',
-      component: Books
+      component: Books,
+      beforeEnter: ifAuthenticated
     },
     {
       path: '/books/new',
@@ -41,6 +51,7 @@ export default new Router({
       path: '/group/:id',
       name: 'Group',
       component: Group,
+      beforeEnter: ifAuthenticated
     }
   ]
 })
