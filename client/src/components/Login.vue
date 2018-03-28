@@ -40,6 +40,7 @@ export default {
         if(res.data.status !== 200){
           this.$store.dispatch(AUTH_ERROR)
         }
+        this.$router.push('/')
       })
     },
     register: function () {
