@@ -3,7 +3,7 @@
     <v-toolbar style="background-color: #2660A4" dark fixed app>
       <v-toolbar-title><a href="/#/"><img id="appLogo" src="static/images/logo.png"></a></v-toolbar-title>
       <v-toolbar-items class="hidden-sm-and-down">
-        <v-btn flat :to="$router.push({name: 'Home'})" v-if="$store.state.token">Home</v-btn>
+        <v-btn flat @click="$router.push({name: 'Home'})" v-if="$store.state.token">Home</v-btn>
         <v-btn flat v-if="$store.state.token">Profile</v-btn>
         <v-btn flat v-if="$store.state.token">Settings</v-btn>
         <v-btn flat v-if="$store.state.token" @click="logout">Logout</v-btn>
