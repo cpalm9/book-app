@@ -6,6 +6,7 @@ import NewBook from '@/components/NewBook'
 import EditBook from '@/components/EditBook'
 import Login from '@/components/Login'
 import Group from '@/components/Group'
+import Register from '@/components/Register'
 import store from '../store'
 
 
@@ -52,6 +53,11 @@ export default new Router({
       name: 'Group',
       component: Group,
       beforeEnter: ifAuthenticated
+    },
+    {
+      path: '/register',
+      name: 'Register',
+      component: Register,
     }
   ]
 })
