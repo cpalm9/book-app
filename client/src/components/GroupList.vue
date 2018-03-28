@@ -5,7 +5,7 @@
           <v-spacer></v-spacer>
         </v-toolbar>
         <v-list two-line subheader>
-          <v-list-tile avatar v-for="item in items" :key="item.title" @click="">
+          <v-list-tile avatar v-for="(item) in items" :key="item.title" @click="$router.push({name: 'Group', params: {id: item.groupName }})">
             <v-list-tile-avatar>
               <v-icon class="grey lighten-1 white--text">group</v-icon>
             </v-list-tile-avatar>
