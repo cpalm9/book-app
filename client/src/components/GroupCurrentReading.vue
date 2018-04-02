@@ -14,7 +14,7 @@
             </div>
         </v-card-title>
         <div id="progressBar">
-            Progress: {{valueDeterminate}}%
+            <h5>Progress: {{valueDeterminate}}%</h5>
             <v-progress-linear v-model="valueDeterminate" height="15"></v-progress-linear>
         </div>
     </v-card>

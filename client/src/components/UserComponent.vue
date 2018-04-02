@@ -5,15 +5,11 @@
         </v-card-media>
         <v-card-title primary-title>
             <div>
-                <img class="userPic" src="static/images/einstein.jpg">
+                <img class="userPic" src="static/images/nobody.jpg">
                 <h6 class="headline mb-0">{{name}}</h6>
                 <div>Random facts about why I love books and why I am on this site!</div>
             </div>
         </v-card-title>
-        <!-- <v-card-actions>
-            <v-btn flat color="orange">Share</v-btn>
-            <v-btn flat color="orange">Explore</v-btn>
-        </v-card-actions> -->
         <ul class="userBookInfo" style="padding:0;">
             <li class="bookStats" style="border-right: 1px solid #d4dbe0;">
                 <a href="#">
