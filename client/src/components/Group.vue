@@ -7,6 +7,7 @@
     </v-flex>
     <v-flex xs3 style="margin-left: 176px;" >
         <group-current-reading/>
+        <next-book-to-read/>
     </v-flex>
     <v-flex xs6>
         <group-notifications/>
@@ -20,6 +21,7 @@
 
     import GroupCurrentReading from './GroupCurrentReading.vue';
     import GroupNotifications from './GroupNotifications.vue';
+    import NextBookToRead from './NextBookToRead.vue';
 
     export default {
     name: 'Group',
@@ -30,6 +32,7 @@
   components: {
       GroupCurrentReading,
       GroupNotifications,
+      NextBookToRead,
 
   }
 }

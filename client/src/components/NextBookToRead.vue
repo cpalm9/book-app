@@ -2,7 +2,7 @@
 
     <v-card>
         <v-toolbar style="background-color: #E8AB3C;" dark>
-          <v-toolbar-title>Currently Reading</v-toolbar-title>
+          <v-toolbar-title>Next Book</v-toolbar-title>
           <v-spacer></v-spacer>
         </v-toolbar>
         <v-card-title primary-title id="bookContent">
@@ -12,24 +12,30 @@
                 <div>{{author}}</div>
             </div>
         </v-card-title>
-        <div id="progressBar">
-            <h5>Progress: {{valueDeterminate}}% &nbsp;&nbsp; Days Left: 20</h5>
-            <v-progress-linear v-model="valueDeterminate" height="15"></v-progress-linear>
+        <div>
+            <h5>Start Date: {{startDate}}</h5>
+            <book-vote/>
         </div>
     </v-card>
 
 </template>
 <script>
 
+import BookVote from './BookVote.vue';
+
 export default {
-  name: "GroupCurrentReading",
+  name: "NextBookToRead",
   data() {
     return {
-        title: '1776',
-        thumbnail: 'static/images/1776.jpg',
-        author: 'David McCullough',
-        valueDeterminate: 50
+        title: 'Insignia',
+        thumbnail: 'static/images/insignia.jpeg',
+        author: 'S.J. Kincaid',
+        startDate: '05/23/18'
     };
+  },
+  components: {
+      BookVote,
+
   },
 };
 </script>
@@ -44,13 +50,6 @@ export default {
 
     #bookContent{
         justify-content: center;
-    }
-
-    #progressBar{
-        text-align: left;
-        max-width: 300px;
-        margin: 2rem;
-        padding-bottom: 25px;
     }
 
 </style>

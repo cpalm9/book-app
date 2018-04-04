@@ -22,7 +22,6 @@
               color="primary"
             >
               <h6>{{item.progress}}%</h6>
-
             </v-progress-circular>
           </v-list-tile>
           <!-- <v-dialog v-model="dialog" max-width="500" :key="item.title">
