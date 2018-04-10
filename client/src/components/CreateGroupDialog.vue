@@ -11,7 +11,7 @@
               <v-flex xs12>
                 <v-text-field label="Group Name" v-model="name" required></v-text-field>
               </v-flex>
-              <v-flex xs12>
+              <!-- <v-flex xs12>
                   <v-text-field label="Description" multi-line v-model="description" required></v-text-field>
               </v-flex>
               <v-flex v-if="switch1" xs12>
@@ -31,7 +31,7 @@
                   chips
                   :items="['Art', 'Biography', 'Business', 'Childrens', 'Christian', 'Classics', 'Comics', 'Crime', 'Fantasy', 'Fiction', 'History', 'Horror', 'Humor', 'Music', 'Mystery', 'NonFiction', 'Philosophy', 'Poetry', 'Political', 'Psychology', 'Religion', 'Romance', 'Science', 'Science Fiction', 'Self Help', 'Sports', 'Thriller', 'Travel', 'Young Adult']"
                 ></v-select>
-              </v-flex>
+              </v-flex> -->
             </v-layout>
           </v-container>
           <small>*indicates required field</small>
@@ -53,10 +53,6 @@ import GroupService from '@/services/GroupService'
         dialog: false,
         switch1: false,
         name: '',
-        description: '',
-        public: true,
-        password: '',
-        interests: [],
         members: []
       }
     },
@@ -64,13 +60,18 @@ import GroupService from '@/services/GroupService'
       async addGroup () {
         await GroupService.addGroup({
           name: this.name,
-          description: this.description,
-          public: true,
-          password: this.password,
-          interests: [],
-          members: []
+        }).then((res) => {
+          var id = res.data.group._id
+          this.addMember(id)
         })
         this.dialog = false;
+        this.$emit('update-groups')
+      },
+      async addMember(id) {
+        await GroupService.addMember({
+            id: id,
+            members: this.$store.state.user
+          })
       }
     }
   }

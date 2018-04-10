@@ -7,7 +7,7 @@ var GroupSchema = new Schema({
     public: Boolean,
     password: String,
     interests: [String],
-    members: [{type:mongoose.Schema.Types.String, ref: 'User'}]
+    members: [{type:mongoose.Schema.Types.ObjectId, ref: 'User'}]
   });
 
 var Group = mongoose.model("Group", GroupSchema);

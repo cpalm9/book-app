@@ -29,7 +29,6 @@ exports.createGroup = (req, res) => {
             group: new_group
         })
     })
-    console.log(new_group)
 }
 
 // Get Groups
@@ -44,11 +43,19 @@ exports.getGroups = (req, res) => {
 
 // Add members to group
 exports.addMembers = (req, res) => {
-    Group.findById(req.params.id, 'name members', (err, group) => {
+    Group.findById(req.params.id, (err, group) => {
         if (err) res.send(err)
-        for(var x = 0; x < req.body.members.length; x++) {
-            group.members.push(req.body.members[x])
+        if(Array.isArray(req.body.members)){
+            for(var x = 0; x < req.body.members.length; x++) {
+                group.members.push(req.body.members[x].id)
+            }
         }
+        else{ group.members.push(req.body.members.id)}
+
+        User.findOne({name: req.body.members.name}, '_id name username groups', (err, user) => {
+            user.groups.push(group._id)
+            user.save()
+        })
         group.save(err => {
             if(err) res.send(err)
             res.send({

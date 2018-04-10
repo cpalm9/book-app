@@ -37,6 +37,7 @@ exports.login = (req,res) => {
       expiresIn: 86400
     })
     var userInfo = {
+      id: user._id,
       name: user.name,
       username: user.username,
       groups: user.groups
