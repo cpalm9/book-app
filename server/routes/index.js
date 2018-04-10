@@ -4,6 +4,7 @@ const googleBooks = require('../controllers/google-books');
 const userController = require('../controllers/user-controller');
 const groupController = require('../controllers/group-controller');
 const authController = require('../controllers/auth-controller');
+const notificationController = require('../controllers/notification-controller');
 var config = require('../config');
 module.exports = function(app){
     // Create a book
@@ -52,4 +53,8 @@ module.exports = function(app){
     app.post('/register', authController.register);
 
     app.post('/login', authController.login);
+
+    app.get('/notifications', notificationController.getNotifications);
+
+    app.post('/notification', notificationController.createNotification);
 }
