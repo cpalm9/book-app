@@ -65,12 +65,14 @@ import GroupService from '@/services/GroupService'
           this.addMember(id)
         })
         this.dialog = false;
-        this.$emit('update-groups')
       },
       async addMember(id) {
         await GroupService.addMember({
             id: id,
             members: this.$store.state.user
+          }).then(res => {
+            this.$root.$emit('updateGroups', res.data.group)
+            this.name = ''
           })
       }
     }

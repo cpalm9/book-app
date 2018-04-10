@@ -43,11 +43,21 @@ export default {
   methods: {
     async getGroups() {
       var response = await GroupService.getGroups()
-      this.groups = response.data.groups
+      var groups = response.data.groups
+      var userGroups = []
+      for(var p in groups){
+        if (groups[p].members[0] === this.$store.state.user.id){
+          userGroups.push(groups[p])
+        }
+      }
+      this.groups = userGroups
     }
   },
   mounted() {
-    this.getGroups()
+    this.getGroups(),
+    this.$root.$on('updateGroups', (res) =>{
+      this.getGroups()
+    })
   },
   components: {
       CreateGroupDialog,

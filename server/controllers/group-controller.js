@@ -33,7 +33,7 @@ exports.createGroup = (req, res) => {
 
 // Get Groups
 exports.getGroups = (req, res) => {
-    Group.find({}, 'name', (err, groups) => {
+    Group.find({}, 'name members', (err, groups) => {
         if (err) res.send(err)
         res.send({
             groups:groups
