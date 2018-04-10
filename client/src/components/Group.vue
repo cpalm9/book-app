@@ -5,7 +5,7 @@
             <h1>Hello {{ this.$route.params.id }}</h1>
         </div>
     </v-flex>
-    <v-flex xs3 style="margin-left: 176px;" >
+    <v-flex xs3 style="margin-left: 13%;" >
         <group-current-reading/>
         <next-book-to-read/>
     </v-flex>

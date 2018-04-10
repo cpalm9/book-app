@@ -10,34 +10,62 @@
           <v-toolbar-title>Next Book</v-toolbar-title>
           <v-spacer></v-spacer>
         </v-toolbar>
+
+        <v-layout row wrap text-xs-center>
         
-        <v-flex xs6>
-            <v-card id="voteCard">
-                <v-card-title primary-title id="bookContent">
-                    <div style="text-align: center;">
-                        <img class="bookPic" :src="thumbnail">
-                        <h6 class="headline mb-0">{{title}}</h6>
-                        <div>{{author}}</div>
+            <v-flex xs6>
+                <v-card id="voteCard">
+                    <v-card-title primary-title id="bookContent">
+                        <div style="text-align: center;">
+                            <img class="bookPic" :src="thumbnail">
+                            <h6 class="headline mb-0">{{title}}</h6>
+                            <div>{{author}}</div>
+                        </div>
+                    </v-card-title>
+
+                    <div class="text-xs-center">
+                        <v-btn id="upBtn" flat icon color="blue lighten-2">
+                            <v-icon x-large>thumb_up</v-icon>
+                        </v-btn>
+
+                        <v-btn id="downBtn" flat icon color="red lighten-2">
+                            <v-icon x-large>thumb_down</v-icon>
+                        </v-btn>
                     </div>
-                </v-card-title>
 
-                <div class="text-xs-center">
-                    <v-btn id="upBtn" flat icon color="blue lighten-2">
-                        <v-icon x-large>thumb_up</v-icon>
-                    </v-btn>
+                </v-card>
+            </v-flex>
 
-                    <v-btn id="downBtn" flat icon color="red lighten-2">
-                        <v-icon x-large>thumb_down</v-icon>
-                    </v-btn>
-                </div>
+            <v-flex xs6>
+                <v-card id="searchCard">
+                    <v-text-field id="searchBar" v-model="search" @keyup="doSearch" light solo append-icon="search" placeholder="Search books..."></v-text-field>
+                    <!-- <input v-model="search" type="search"> -->
+                    <!-- <input type="button" @click="doSearch" value="Search"> -->
+                    <br clear="left">
+                    <div v-if="searching"><i>Searching...</i></div>
 
-            </v-card>
-        </v-flex>
+                    <div class="allResults">
+                        <div v-if="books.length" >
+                        <h2>Results</h2>
+                        <p><i>Click the cover to find similar books...</i></p>
+                        <div v-for="book in books" class="bookResult">
+                            <img :src="book.image_url" class="bookResult" @click="findSimilar(book)">
+                            {{book.title}}
+                        </div>
+                    </div>
 
-        <v-flex xs6>
+                    <div v-if="relatedBooks.length">
+                        <h2>Books Related to {{ selectedBook.title }}</h2>
+                        <div v-for="book in relatedBooks" class="bookResult">
+                            <img :src="book.image_url" class="bookResult" @click="findSimilar(book)">
+                            {{book.title}}
+                        </div>
+                        </div>
 
-        </v-flex>
-
+                    </div>
+                </v-card>
+            </v-flex>
+        </v-layout>
       </v-card>
     </v-dialog>
   </v-layout>
@@ -54,9 +82,41 @@
         title: 'Harry Potter',
         thumbnail: 'static/images/HarryPotter.jpg',
         author: 'J.K. Rowling',
-        valueDeterminate: 50
+        valueDeterminate: 50,
+        search:'',
+        books:[],
+        relatedBooks:[],
+        searching:false,
+        selectedBook:null,
       }
-    }
+    },
+    methods:{
+    doSearch() {
+      if(this.search === '') return;
+      this.searching = true;
+      this.books = [];
+      this.relatedBooks = [];
+      console.log('search for '+this.search);
+      fetch(`https://openwhisk.ng.bluemix.net/api/v1/web/rcamden%40us.ibm.com_My%20Space/goodreads/search.json?search=${encodeURIComponent(this.search)}`)
+      .then(res=>res.json())
+      .then(res => {
+          console.log(res.result);
+        this.searching = false;
+        this.books = res.result;
+      });
+    },
+    findSimilar(book) {
+      this.selectedBook = book;
+      this.relatedBooks = [];
+      console.log('find books similar to '+book.id);
+      fetch(`https://openwhisk.ng.bluemix.net/api/v1/web/rcamden%40us.ibm.com_My%20Space/goodreads/findSimilar.json?id=${encodeURIComponent(book.id)}`)
+      .then(res=>res.json())
+      .then(res => {
+        this.relatedBooks = res.result;
+      });
+
+    } 
+  }
   }
 </script>
 
@@ -85,6 +145,29 @@
 
     #downBtn{
         margin-left: 30px;
+    }
+
+    #searchCard{
+        margin-right: 25%;
+        margin-top: 20%;
+        width: 540px;
+        background: rgba(0, 25, 25, .2);
+    }
+
+    div.bookResult {
+    clear: left;
+    }
+
+    img.bookResult {
+    float: left;
+    margin-right: 5px;
+    margin-bottom: 10px;
+    cursor:pointer;
+    }
+
+    .allResults {
+    display: grid;
+    grid-template-columns: 50.0% 50.0%;   
     }
 
 </style>

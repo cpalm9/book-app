@@ -18,8 +18,8 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="blue darken-1" flat @click.native="login">Login</v-btn>
-          <v-btn color="blue darken-1" flat @click.native="register">Register</v-btn>
+          <v-btn color="blue darken-1" flat @click="login">Login</v-btn>
+          <v-btn color="blue darken-1" flat @click="register">Register</v-btn>
         </v-card-actions>
       </v-card>
 </template>
