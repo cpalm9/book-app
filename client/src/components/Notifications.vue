@@ -22,7 +22,7 @@
                 <div id="textStuff">
                     <div id="textHead">
                         <small id="timeStamp">{{card.datePosted}}</small>
-                        <h4>{{$store.state.user.username}}</h4>
+                        <h4>{{card.user}}</h4>
                     </div>
                     <p style="margin-right: 1.5rem;">{{card.comment}}</p>
                     <v-card-actions style="margin: 0; padding: 0;">

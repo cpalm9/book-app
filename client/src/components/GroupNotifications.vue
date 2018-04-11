@@ -18,18 +18,18 @@
         <v-layout row wrap>
           <v-flex v-for="card in cards" :key="card.id">
             <v-card style="text-align: left; overflow: hidden;" >
-                <img id="userPic" :src="card.avatar">
+                <img id="userPic" src="/static/images/einstein.jpg">
                 <div id="textStuff">
                     <div id="textHead">
-                        <small id="timeStamp">4 min</small>
-                        <h4>{{card.username}}</h4>
+                        <small id="timeStamp">{{card.datePosted}}</small>
+                        <h4>{{$store.state.user.username}}</h4>
                     </div>
-                    <p style="margin-right: 1.5rem;">{{card.message}}</p>
+                    <p style="margin-right: 1.5rem;">{{card.comment}}</p>
                     <v-card-actions style="margin: 0; padding: 0;">
                         <v-spacer></v-spacer>
                         <v-badge left color="red" overlap>
-                            <span slot="badge">{{card.messageLike}}</span>
-                            <v-btn icon @click="card.messageLike += 1">
+                            <span slot="badge">{{card.messageLikes}}</span>
+                            <v-btn icon @click="card.messageLikes += 1">
                                 <v-icon>favorite</v-icon>
                             </v-btn>
                         </v-badge>
@@ -49,20 +49,39 @@
 <script>
 
 import AddCommentDialog from './AddCommentDialog.vue';
-
+import NotificationService from '../services/NotificationService'
 export default {
   name: "Notifications",
   data() {
     return {
-        cards: [
-            { avatar: '/static/images/nikola.jpg', username: 'Nikola Tesla', message: 'Aenean lacinia bibendum nulla sed consectetur. Vestibulum id ligula porta felis euismod semper. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.', messageLike: 6 },
-            { avatar: '/static/images/einstein.jpg', username: 'Einstein', message: 'Aenean lacinia bibendum nulla sed consectetur. Vestibulum id ligula porta felis euismod semper. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.', messageLike: 23 },
-            { avatar: '/static/images/nikola.jpg', username: 'Nikola Tesla', message: 'Aenean lacinia bibendum nulla sed consectetur. Vestibulum id ligula porta felis euismod semper. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.', messageLike: 19 },
-      ]
+        cards: []
     }
   },
   components: {
       AddCommentDialog,
+  },
+  methods: {
+      async getNotifications() {
+        var res = await NotificationService.getNotifications()
+        var notifications = res.data.notifications
+        notifications.forEach(el => {
+            var date = new Date(el.datePosted)
+            var currentDate = new Date(Date.now())
+            var diff = Math.abs(currentDate - date)
+            var minutes = date.getMinutes()
+            var hours = date.getHours()
+            el.datePosted = (date.getUTCMonth() + 1) + '/' + date.getUTCDate() + '/' + date.getFullYear() + ' ' + hours + ':' + minutes
+        });
+
+        var groupNotifications = notifications.filter((x)=> {
+          return x.group[0] === this.$route.params.id
+        })
+        console.log(groupNotifications)
+        this.cards = groupNotifications
+      }
+  },
+  mounted() {
+      this.getNotifications()
   }
 };
 </script>

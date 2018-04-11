@@ -8,7 +8,6 @@ export default {
         return api().get('groups', params)
     },
     addMember(params){
-        console.log(params)
         return api().put('group/add/'+params.id, params)
     }
 }

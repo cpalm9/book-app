@@ -46,7 +46,8 @@ export default {
       var groups = response.data.groups
       var userGroups = []
       for(var p in groups){
-        if (groups[p].members[0] === this.$store.state.user.id){
+        console.log(groups[p])
+        if (groups[p].members.includes(this.$store.state.user.id)){
           userGroups.push(groups[p])
         }
       }

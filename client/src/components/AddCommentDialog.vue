@@ -45,7 +45,8 @@ import GroupService from '../services/GroupService'
         comment: '',
         datePosted: '',
         group: '',
-        groups: []
+        groups: [],
+        user: ''
       }
     },
     methods: {
@@ -53,7 +54,8 @@ import GroupService from '../services/GroupService'
         await NotificationService.addNotification({
           comment: this.comment,
           datePosted: Date.now(),
-          group: this.group
+          group: this.group,
+          user: this.$store.state.user.name
         }).then((res)=>{
           this.dialog = false
           this.comment = ''
