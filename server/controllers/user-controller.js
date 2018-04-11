@@ -36,3 +36,18 @@ exports.getUsers = (req, res) => {
       }).sort({_id:-1})
 }
 
+//Update User
+exports.updateUser = (req, res) => {
+    var userID = req.body.user.id
+    User.findById(userID, 'name username readingList groups', (err, user) => {
+        if(user.readingList){
+            user.readingList.push(req.body.book)
+        }
+        user.save(err => {
+            if(err) console.log(err)
+            res.send({
+                success: true, user: user
+            })
+        })
+    })
+}

@@ -5,6 +5,7 @@ var BookSchema = new Schema({
   title: String,
   description: String,
   author: String,
+  thumbnail: String,
   rating: Number
 });
 

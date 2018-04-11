@@ -6,7 +6,12 @@ var UserSchema = new Schema({
     username: String,
     password: String,
     groups: [{type:mongoose.Schema.Types.ObjectId, ref: 'Group'}],
-    readingList: [{type:mongoose.Schema.Types.ObjectId, ref: 'Book'}]
+    readingList: [{
+        title: String,
+        description: String,
+        author: String,
+        thumbnail: String,
+    }]
 })
 var User = mongoose.model("User", UserSchema);
 module.exports = User;

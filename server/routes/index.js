@@ -57,4 +57,5 @@ module.exports = function(app){
     app.get('/notifications', notificationController.getNotifications);
 
     app.post('/notification', notificationController.createNotification);
+    app.put('/user/update', userController.updateUser)
 }

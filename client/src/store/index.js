@@ -6,6 +6,8 @@ export const USER_REQUEST = 'USER_REQUEST'
 export const USER_SUCCESS = 'USER_SUCCESS'
 export const USER_ERROR = 'USER_ERROR'
 export const AUTH_REGISTER = 'AUTH_REGISTER'
+export const UPDATE_READING_LIST = 'UPDATE_READING_LIST'
+export const UPDATE_SUCCESS = 'UPDATE_SUCCESS'
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
@@ -23,7 +25,8 @@ export default new Vuex.Store({
   state: {
     token: localStorage.getItem('user-token') || '',
     status: '',
-    user: ''
+    user: '',
+    readingList: '',
   },
   getters: {
     isAuthenticated: state => !!state.token,
@@ -87,6 +90,19 @@ export default new Vuex.Store({
           reject(err)
         })
       })
+    },
+    [UPDATE_READING_LIST]: ({commit, dispatch}, book) => {
+      return new Promise((resolve, reject) => {
+        commit(UPDATE_READING_LIST)
+        axios({url: 'http://localhost:8081/user/update', data: book, method: 'PUT'})
+        .then(res => {
+          console.log(res.data.user)
+          var readingList = res.data.user.readingList
+          commit(UPDATE_SUCCESS, {
+            readingList: readingList
+          })
+        })
+      })
     }
   },
   mutations: {
@@ -97,6 +113,7 @@ export default new Vuex.Store({
       state.status = 'success'
       state.token = payload.token
       state.user = payload.user
+      state.readingList = payload.user.readingList
     },
     [AUTH_ERROR]: (state) => {
       state.status = 'error'
@@ -104,10 +121,18 @@ export default new Vuex.Store({
     [AUTH_LOGOUT]: (state, token) => {
       state.token = '',
       state.status = '',
-      state.user = ''
+      state.user = '',
+      state.readingList = ''
     },
     [AUTH_REGISTER]: (state) => {
       state.status = 'registered'
+    },
+    [UPDATE_SUCCESS]: (state, payload) => {
+      state.status = 'updated'
+      state.readingList = payload.readingList
+    },
+    [UPDATE_READING_LIST]: (state) => {
+      state.status = 'updating'
     }
   }
 })

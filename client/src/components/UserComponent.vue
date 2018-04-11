@@ -33,7 +33,7 @@ export default {
   name: "UserComponent",
   data() {
     return {
-      name: this.$store.state.user.name
+      name: this.$store.state.user.name,
     };
   },
 };
