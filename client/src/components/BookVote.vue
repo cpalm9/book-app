@@ -49,7 +49,7 @@
                         <h2>Results</h2>
                         <p><i>Click the cover to find similar books...</i></p>
                         <div v-for="book in books" class="bookResult">
-                            <img :src="book.image_url" class="bookResult" @click="findSimilar(book)">
+                            <img :src="book.image_url" class="bookResult" @click="findSimilar(book)" >
                             {{book.title}}
                         </div>
                     </div>
@@ -91,32 +91,38 @@
       }
     },
     methods:{
-    doSearch() {
-      if(this.search === '') return;
-      this.searching = true;
-      this.books = [];
-      this.relatedBooks = [];
-      console.log('search for '+this.search);
-      fetch(`https://openwhisk.ng.bluemix.net/api/v1/web/rcamden%40us.ibm.com_My%20Space/goodreads/search.json?search=${encodeURIComponent(this.search)}`)
-      .then(res=>res.json())
-      .then(res => {
-          console.log(res.result);
-        this.searching = false;
-        this.books = res.result;
-      });
-    },
-    findSimilar(book) {
-      this.selectedBook = book;
-      this.relatedBooks = [];
-      console.log('find books similar to '+book.id);
-      fetch(`https://openwhisk.ng.bluemix.net/api/v1/web/rcamden%40us.ibm.com_My%20Space/goodreads/findSimilar.json?id=${encodeURIComponent(book.id)}`)
-      .then(res=>res.json())
-      .then(res => {
-        this.relatedBooks = res.result;
-      });
-
-    } 
-  }
+        doSearch() {
+            if(this.search === '') return;
+            this.searching = true;
+            this.books = [];
+            this.relatedBooks = [];
+            fetch(`https://openwhisk.ng.bluemix.net/api/v1/web/rcamden%40us.ibm.com_My%20Space/goodreads/search.json?search=${encodeURIComponent(this.search)}`)
+            .then(res=>res.json())
+            .then(res => {
+                this.searching = false;
+                this.books = res.result;
+            });
+        },
+        findSimilar(book) {
+            this.selectedBook = book;
+            console.log(book);
+            this.relatedBooks = [];
+            fetch(`https://openwhisk.ng.bluemix.net/api/v1/web/rcamden%40us.ibm.com_My%20Space/goodreads/findSimilar.json?id=${encodeURIComponent(book.id)}`)
+            .then(res=>res.json())
+            .then(res => {
+                this.relatedBooks = res.result;
+            });
+        },
+        addToReadingList(book) {
+            var newBook = { 
+                title: book.title,
+                author: book.author,
+                thumbnail: book.small_image_url, 
+                };
+            console.log(newBook)
+            this.$store.state.user.readingList.push(newBook)
+        } 
+    }
   }
 </script>
 

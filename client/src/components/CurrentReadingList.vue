@@ -4,17 +4,17 @@
           <h3>Current Reading List</h3>
       </div>
       <v-list two-line>
-        <template v-for="(item, index) in items" >
-          <v-divider :key="item.title"></v-divider>
-          <v-list-tile avatar  @click="dialog = true, tileIndex = index" :key="item.title">
+        <template v-for="(book) in readingList" >
+          <v-divider :key="book.title"></v-divider>
+          <v-list-tile avatar  @click="dialog = true, tileIndex = index">
             <v-list-tile-avatar>
-              <img :src="item.thumbnail">
+              <img :src="book.thumbnail">
             </v-list-tile-avatar>
             <v-list-tile-content>
-              <v-list-tile-title v-html="item.name"></v-list-tile-title>
-              <v-list-tile-sub-title v-html="item.author"></v-list-tile-sub-title>
+              <v-list-tile-title v-html="book.title"></v-list-tile-title>
+              <v-list-tile-sub-title v-html="book.author"></v-list-tile-sub-title>
             </v-list-tile-content>
-            <v-progress-circular
+            <!-- <v-progress-circular
               :size="60"
               :width="15"
               :rotate="-90"
@@ -22,7 +22,7 @@
               color="primary"
             >
               <h6>{{item.progress}}%</h6>
-            </v-progress-circular>
+            </v-progress-circular> -->
           </v-list-tile>
           <!-- <v-dialog v-model="dialog" max-width="500" :key="item.title">
             <v-card class="text-xs-center">
@@ -44,37 +44,7 @@ export default {
     return {
         dialog: false,
         tileIndex: null,
-        items: [
-          {
-            value: false,
-            name: 'Harry Potter',
-            thumbnail: 'static/images/HarryPotter.jpg',
-            author: 'J.K. Rowling',
-            progress: 86,
-          },
-          {
-            value: false,
-            name: '1776',
-            thumbnail: 'static/images/1776.jpg',
-            author: 'David McCullough',
-            progress: 57,
-          },
-          {
-            value: false,
-            name: 'Insignia',
-            thumbnail: 'static/images/insignia.jpeg',
-            author: 'S.J. Kincaid',
-            progress: 45,
-          },
-          {
-            value: false,
-            name: 'Hillbilly Elegy',
-            thumbnail: 'static/images/hillbilly.jpg',
-            author: 'J. D. Vance',
-            progress: 98,
-          },
-          
-        ]
+        readingList: this.$store.state.user.readingList,
       };
   },
 };
