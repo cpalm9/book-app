@@ -49,7 +49,7 @@
                         <h2>Results</h2>
                         <p><i>Click the cover to find similar books...</i></p>
                         <div v-for="book in books" class="bookResult">
-                            <img :src="book.image_url" class="bookResult" @click="findSimilar(book)" >
+                            <img :src="book.image_url" class="bookResult" @click="findSimilar(book); addToReadingList(book);" >
                             {{book.title}}
                         </div>
                     </div>
@@ -72,6 +72,7 @@
 </template>
 
 <script>
+import {UPDATE_READING_LIST} from '../store'
   export default {
     data () {
       return {
@@ -105,7 +106,7 @@
         },
         findSimilar(book) {
             this.selectedBook = book;
-            console.log(book);
+            // console.log(book);
             this.relatedBooks = [];
             fetch(`https://openwhisk.ng.bluemix.net/api/v1/web/rcamden%40us.ibm.com_My%20Space/goodreads/findSimilar.json?id=${encodeURIComponent(book.id)}`)
             .then(res=>res.json())
@@ -119,8 +120,18 @@
                 author: book.author,
                 thumbnail: book.small_image_url, 
                 };
-            console.log(newBook)
-            this.$store.state.user.readingList.push(newBook)
+
+            var user = this.$store.state.user
+            // console.log(newBook)
+
+            this.$store.dispatch(UPDATE_READING_LIST, {book: newBook, user: user}).then((res) => {
+                if(res.data.status !==200){
+                    this.$store.dispatch("Error")
+                }
+                // console.log(res)
+            })
+
+            //this.$store.state.user.readingList.push(newBook)
         } 
     }
   }

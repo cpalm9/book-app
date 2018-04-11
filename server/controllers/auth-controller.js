@@ -40,7 +40,8 @@ exports.login = (req,res) => {
       id: user._id,
       name: user.name,
       username: user.username,
-      groups: user.groups
+      groups: user.groups,
+      readingList: user.readingList,
     }
     res.send({status: 200, token: token, user: userInfo})
   })

@@ -44,7 +44,7 @@ export default {
     return {
         dialog: false,
         tileIndex: null,
-        readingList: this.$store.state.user.readingList,
+        readingList: this.$store.state.readingList,
       };
   },
 };
