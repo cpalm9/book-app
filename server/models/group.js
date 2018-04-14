@@ -8,7 +8,14 @@ var GroupSchema = new Schema({
     password: String,
     interests: [String],
     members: [{type:mongoose.Schema.Types.ObjectId, ref: 'User'}],
-    booksToRead: [{book:{type:mongoose.Schema.Types.ObjectId, ref:'Book'}, position: Number}]
+    booksToRead: [{
+      title: String,
+      description: String,
+      author: String,
+      thumbnail: String,
+      upVote: Number,
+      downVote: Number,
+    }]
   });
 
 var Group = mongoose.model("Group", GroupSchema);

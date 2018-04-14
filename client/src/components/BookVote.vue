@@ -48,7 +48,7 @@
                         <div v-if="books.length" >
                         <h2>Results</h2>
                         <p><i>Click the cover to find similar books...</i></p>
-                        <div v-for="book in books" class="bookResult">
+                        <div v-for="book in books" class="bookResult" :key="book.title">
                             <img :src="book.image_url" class="bookResult" @click="findSimilar(book); addToReadingList(book);" >
                             {{book.title}}
                         </div>
@@ -56,7 +56,7 @@
 
                     <div v-if="relatedBooks.length">
                         <h2>Books Related to {{ selectedBook.title }}</h2>
-                        <div v-for="book in relatedBooks" class="bookResult">
+                        <div v-for="book in relatedBooks" class="bookResult" :key="book.title">
                             <img :src="book.image_url" class="bookResult" @click="findSimilar(book)">
                             {{book.title}}
                         </div>
