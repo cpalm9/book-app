@@ -122,6 +122,17 @@ exports.startReading = (req, res) => {
             thumbnail: req.body.book.thumbnail,
         }
         group.currentBook = new_book
+        
+        //Delete book in voting list once it is selected as the current reading book
+        var index = 0
+        for(var i = 0; i < group.booksToRead.length; i++)
+        {
+            if(group.currentBook.title == group.booksToRead[i].title){
+                index = i;
+            }
+        }
+        group.booksToRead.splice(index, 1)
+
         group.save(err => {
             if(err) res.send(err)
             res.send({

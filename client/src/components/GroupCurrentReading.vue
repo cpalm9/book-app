@@ -1,6 +1,6 @@
 <template>
 
-    <v-card>
+    <v-card id="currentCard">
         <v-toolbar style="background-color: #E8AB3C;" dark>
           <v-toolbar-title>Currently Reading</v-toolbar-title>
           <v-spacer></v-spacer>
@@ -50,7 +50,7 @@ export default {
 
 <style scoped>
     .bookPic{
-        max-height: 200px;
+        height: 200px;
         border: 3px solid #fff;
         box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
         position: relative;
@@ -65,6 +65,10 @@ export default {
         max-width: 300px;
         margin: 2rem;
         padding-bottom: 25px;
+    }
+
+    #currentCard{
+        margin-bottom: 2rem;
     }
 
 </style>

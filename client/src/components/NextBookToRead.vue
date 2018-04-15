@@ -13,9 +13,12 @@
             </div>
         </v-card-title>
         <div>
-            <h5>Start Date: </h5>
-            <book-vote/>
-            <v-btn color="success" @click="startReading(book)">Start Reading</v-btn>
+            <div class="buttons">
+                <book-vote/>
+            </div>
+            <div class="buttons" id="start">
+                <v-btn color="success" @click="startReading(book)">Start Reading</v-btn>
+            </div>
         </div>
     </v-card>
 
@@ -104,4 +107,10 @@ export default {
         justify-content: center;
     }
 
+    .buttons{
+        width: 100px;
+        height: 100px;
+        display: inline; /* Change this to block and see what happens */
+        position:relative;
+    }
 </style>

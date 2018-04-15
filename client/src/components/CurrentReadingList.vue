@@ -6,7 +6,7 @@
       <v-list two-line>
         <template v-for="(book) in readingList" >
           <v-divider></v-divider>
-          <v-list-tile avatar  @click="dialog = true, tileIndex = index" :key="book.title">
+          <v-list-tile avatar  @click="dialog = true" :key="book.title">
             <v-list-tile-avatar>
               <img :src="book.thumbnail">
             </v-list-tile-avatar>
