@@ -5,7 +5,7 @@
       </div>
       <v-list two-line>
         <template v-for="(book) in readingList" >
-          <v-divider :key="book.title"></v-divider>
+          <v-divider></v-divider>
           <v-list-tile avatar  @click="dialog = true, tileIndex = index" :key="book.title">
             <v-list-tile-avatar>
               <img :src="book.thumbnail">
@@ -37,16 +37,25 @@
 </template>
 
 <script>
-
+import GroupService from '../services/GroupService'
 export default {
   name: "CurrentReadingList",
   data() {
     return {
         dialog: false,
         tileIndex: null,
-        readingList: this.$store.state.readingList,
+        readingList: [],
       };
   },
+  methods: {
+    async getList(){
+      var response = await GroupService.currentReadingList()
+      this.readingList = response.data.bookList
+    }
+  },
+  mounted() {
+    this.getList()
+  }
 };
 </script>
 

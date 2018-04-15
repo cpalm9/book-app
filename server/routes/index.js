@@ -58,4 +58,11 @@ module.exports = function(app){
 
     app.post('/notification', notificationController.createNotification);
     app.put('/user/update', userController.updateUser)
+
+    app.get('/group/:id', groupController.getGroupById);
+    app.put('/group/update-book-vote', groupController.booksToRead);
+    app.put('/group/change-vote/:id', groupController.changeVote);
+    app.put('/group/start-reading', groupController.startReading)
+
+    app.get('/current-reading', groupController.currentReadingList)
 }

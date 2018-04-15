@@ -12,25 +12,39 @@
                 <div>{{author}}</div>
             </div>
         </v-card-title>
-        <div id="progressBar">
-            <h5>Progress: {{valueDeterminate}}% &nbsp;&nbsp; Days Left: 20</h5>
-            <v-progress-linear v-model="valueDeterminate" height="15"></v-progress-linear>
-        </div>
     </v-card>
 
 </template>
 <script>
-
+import GroupService from '../services/GroupService'
 export default {
   name: "GroupCurrentReading",
   data() {
     return {
-        title: '1776',
-        thumbnail: 'static/images/1776.jpg',
-        author: 'David McCullough',
-        valueDeterminate: 50
+        title: '',
+        thumbnail: '',
+        author: '',
     };
   },
+  methods: {
+    async getGroup() {
+        await GroupService.getGroupById(this.$route.params.id).then(res => {
+            var group = res.data.group
+            var currentBook = group.currentBook
+            this.title = currentBook.title
+            this.thumbnail = currentBook.thumbnail
+            this.author = currentBook.author
+        })
+    },
+  },
+  mounted() {
+      this.getGroup()
+      this.$root.$on('updated-current-book', (payload)=>{
+          this.title = payload.book.title
+          this.thumbnail = payload.book.thumbnail
+          this.author = payload.book.author
+      })
+  }
 };
 </script>
 

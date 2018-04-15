@@ -48,7 +48,6 @@ import GroupService from '../services/GroupService'
         this.items = groups
       },
       async addMember(id) {
-        console.log(id)
         await GroupService.addMember({
             id: id,
             members: this.$store.state.user

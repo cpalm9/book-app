@@ -4,7 +4,7 @@
       <v-btn color="primary" dark slot="activator">Vote for Next Book</v-btn>
       <v-card>
         <v-toolbar dark color="primary">
-          <v-btn icon @click.native="dialog = false" dark>
+          <v-btn icon @click="dialog = false; updateList" dark>
             <v-icon>close</v-icon>
           </v-btn>
           <v-toolbar-title>Next Book</v-toolbar-title>
@@ -12,23 +12,25 @@
         </v-toolbar>
 
         <v-layout row wrap text-xs-center>
-        
+              <v-alert type="success" dismissible v-model="successDialog">
+                This is a success alert that is closable.
+              </v-alert>
             <v-flex xs6>
                 <v-card id="voteCard">
                     <v-card-title primary-title id="bookContent">
-                        <div style="text-align: center;">
-                            <img class="bookPic" :src="thumbnail">
-                            <h6 class="headline mb-0">{{title}}</h6>
-                            <div>{{author}}</div>
+                        <div style="text-align: center;" v-if="highestBook">
+                            <img class="bookPic" :src="highestBook.thumbnail">
+                            <h6 class="headline mb-0">{{highestBook.title}}</h6>
+                            <div>{{highestBook.author}}</div>
                         </div>
                     </v-card-title>
 
                     <div class="text-xs-center">
-                        <v-btn id="upBtn" flat icon color="blue lighten-2">
+                        <v-btn id="upBtn" flat icon color="blue lighten-2" @click="incrementVote(yes)">
                             <v-icon x-large>thumb_up</v-icon>
                         </v-btn>
 
-                        <v-btn id="downBtn" flat icon color="red lighten-2">
+                        <v-btn id="downBtn" flat icon color="red lighten-2" @click="incrementVote(no)">
                             <v-icon x-large>thumb_down</v-icon>
                         </v-btn>
                     </div>
@@ -48,17 +50,19 @@
                         <div v-if="books.length" >
                         <h2>Results</h2>
                         <p><i>Click the cover to find similar books...</i></p>
-                        <div v-for="book in books" class="bookResult" :key="book.title">
-                            <img :src="book.image_url" class="bookResult" @click="findSimilar(book); addToReadingList(book);" >
+                        <div v-for="book in books" class="bookResult" :key="book.id">
+                            <img :src="book.image_url" class="bookResult" @click="findSimilar(book);" >
                             {{book.title}}
+                            <v-btn color="success" @click="addToVoteList(book)">Add to Vote List</v-btn>
                         </div>
                     </div>
 
                     <div v-if="relatedBooks.length">
                         <h2>Books Related to {{ selectedBook.title }}</h2>
-                        <div v-for="book in relatedBooks" class="bookResult" :key="book.title">
+                        <div v-for="book in relatedBooks" class="bookResult" :key="book.id">
                             <img :src="book.image_url" class="bookResult" @click="findSimilar(book)">
                             {{book.title}}
+                            <v-btn color="success">Add to Vote List</v-btn>
                         </div>
                         </div>
 
@@ -73,6 +77,7 @@
 
 <script>
 import {UPDATE_READING_LIST} from '../store'
+import GroupService from '../services/GroupService'
   export default {
     data () {
       return {
@@ -80,15 +85,18 @@ import {UPDATE_READING_LIST} from '../store'
         notifications: false,
         sound: true,
         widgets: false,
-        title: 'Harry Potter',
-        thumbnail: 'static/images/HarryPotter.jpg',
-        author: 'J.K. Rowling',
+        highestBook: '',
+        counter: 0,
         valueDeterminate: 50,
         search:'',
         books:[],
         relatedBooks:[],
         searching:false,
         selectedBook:null,
+        group: {},
+        successDialog: false,
+        yes: 1,
+        no: 0
       }
     },
     methods:{
@@ -114,25 +122,88 @@ import {UPDATE_READING_LIST} from '../store'
                 this.relatedBooks = res.result;
             });
         },
-        addToReadingList(book) {
-            var newBook = { 
+        async addToVoteList(book) {
+          var newBook = { 
                 title: book.title,
                 author: book.author,
                 thumbnail: book.small_image_url, 
-                };
+          };
+          await GroupService.addToVoteList({
+            book: newBook,
+            group: this.$route.params.id
+          }).then(res => {
+            if(res.status == 200){
+              this.successDialog = true
+              this.getGroup()
+            }
+          })
+        },
+        addToList: function (book){
+          this.addToVoteList(book)
+        },
+        async getGroup() {
+          await GroupService.getGroupById(this.$route.params.id).then(res => {
+            this.group = res.data.group
+            if(this.group.booksToRead != null){
+              var highBook = this.group.booksToRead
+            }
+           this.highestBook = highBook[this.counter]
+          })
+        },
+        incrementCounter(){
+          var len = (this.group.booksToRead.length - 1)
+          if(this.counter < len){
+            this.counter += 1
+          }
+          else {
+            this.counter = 0
+          }
+        },
+        async incrementUpVote(val){
+          var book = this.highestBook
+          await GroupService.changeVote({
+            id: val,
+            group: this.group,
+            book: book
+          }).then(res => {
+            if(res.status == 200){
+              this.incrementCounter()
+              this.getGroup()
+              this.$root.$emit('updated-list')
+              this.search = ''
+            }
+          })
+        },
+        async incrementDownVote(val){
+          var book = this.highestBook
+          await GroupService.changeVote({
+            id: val,
+            group: this.group,
+            book: book
+          }).then(res => {
+            if(res.status == 200){
+              this.incrementCounter()
+              this.getGroup()
+              this.$root.$emit('updated-list')
+              this.search = ''
+            }
+          })
+        },
+        incrementVote(value){
+          if(value == 1) {
+            this.incrementUpVote(1)
+          }
+          else {
+            this.incrementDownVote(0)
+          }
+        },
+        updateList() {
+          
+        }
 
-            var user = this.$store.state.user
-            // console.log(newBook)
-
-            this.$store.dispatch(UPDATE_READING_LIST, {book: newBook, user: user}).then((res) => {
-                if(res.data.status !==200){
-                    this.$store.dispatch("Error")
-                }
-                // console.log(res)
-            })
-
-            //this.$store.state.user.readingList.push(newBook)
-        } 
+    },
+    mounted() {
+      this.getGroup()
     }
   }
 </script>

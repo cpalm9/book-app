@@ -13,9 +13,15 @@ var GroupSchema = new Schema({
       description: String,
       author: String,
       thumbnail: String,
-      upVote: Number,
-      downVote: Number,
-    }]
+      upVote: {type:Number, default: 0},
+      downVote: {type:Number, default: 0},
+    }],
+    currentBook: {
+      title: String,
+      description: String,
+      author: String,
+      thumbnail: String,
+    }
   });
 
 var Group = mongoose.model("Group", GroupSchema);

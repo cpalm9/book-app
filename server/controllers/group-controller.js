@@ -65,3 +65,90 @@ exports.addMembers = (req, res) => {
         })
     })
 }
+
+exports.getGroupById = (req,res) => {
+    Group.findById(req.params.id, (err, group) => {
+        if (err) res.send(err)
+        res.send({
+            status: 200,
+            group: group
+        })
+    })
+}
+
+exports.booksToRead = (req, res) => {
+    Group.findById(req.body.group, (err, group) => {
+        if (err) res.send(err)
+        group.booksToRead.push(req.body.book)
+        group.save(err=>{
+            if(err) res.send(err)
+            res.send({
+                status: 200,
+                group: group
+            })
+        })
+    })
+}
+
+exports.changeVote = (req, res) => {
+    Group.findById(req.body.group._id, (err, group) => {
+        if(err) res.send(err)
+        group.booksToRead.forEach(el => {
+            if(el.title === req.body.book.title){
+                if(req.body.id == 1){
+                    el.upVote += 1
+                }
+                else{
+                    el.downVote += 1
+                }
+            }
+        });
+        group.save(err => {
+            if(err) res.send(err)
+            res.send({
+                status: 200,
+                group: group
+            })
+        })
+    })
+}
+
+exports.startReading = (req, res) => {
+    Group.findById(req.body.group._id, (err, group) => {
+        if(err) res.send(err)
+        var new_book = {
+            title: req.body.book.title,
+            author: req.body.book.author,
+            thumbnail: req.body.book.thumbnail,
+        }
+        group.currentBook = new_book
+        group.save(err => {
+            if(err) res.send(err)
+            res.send({
+                status: 200,
+                group: group,
+                book: new_book
+            })
+        })
+    })
+}
+
+function isEmpty(obj) {
+    for(var key in obj) {
+        if(obj.hasOwnProperty(key))
+            return false;
+    }
+    return true;
+}
+
+exports.currentReadingList = (req, res) => {
+    var array = []
+    Group.find({}, 'name currentBook', (err, groups)=> {
+        groups.forEach(el => {
+            if(el.currentBook.title !== undefined){
+                array.push(el.currentBook)
+            }
+        })
+        res.send({status: 'success', bookList: array})
+    })
+}

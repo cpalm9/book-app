@@ -5,7 +5,7 @@
           <v-spacer></v-spacer>
         </v-toolbar>
         <v-list two-line subheader>
-          <v-list-tile avatar v-for="(item) in groups" :key="item._id" @click="$router.push({name: 'Group', params: {id: item.name }})"> 
+          <v-list-tile avatar v-for="(item) in groups" :key="item._id" @click="$router.push({name: 'Group', params: {id: item._id }})"> 
             <v-list-tile-avatar>
               <v-icon class="grey lighten-1 white--text">group</v-icon>
             </v-list-tile-avatar>
@@ -46,7 +46,6 @@ export default {
       var groups = response.data.groups
       var userGroups = []
       for(var p in groups){
-        console.log(groups[p])
         if (groups[p].members.includes(this.$store.state.user.id)){
           userGroups.push(groups[p])
         }

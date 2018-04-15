@@ -76,7 +76,6 @@ export default {
         var groupNotifications = notifications.filter((x)=> {
           return x.group[0] === this.$route.params.id
         })
-        console.log(groupNotifications)
         this.cards = groupNotifications
       }
   },
