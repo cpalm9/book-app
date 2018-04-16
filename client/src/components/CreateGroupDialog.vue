@@ -47,6 +47,7 @@
 
 <script>
 import GroupService from '@/services/GroupService'
+import {UPDATE_USER_GROUP} from '@/store/index'
   export default {
     data () {
       return {
@@ -63,6 +64,14 @@ import GroupService from '@/services/GroupService'
         }).then((res) => {
           var id = res.data.group._id
           this.addMember(id)
+          var user = this.$store.state.user
+          // console.log(res.data)
+          this.$store.dispatch(UPDATE_USER_GROUP, {group: res.data.group, user: user}).then((res) => {
+                if(res.data.status !==200){
+                    this.$store.dispatch("Error")
+                }
+                // console.log(res)
+            })
         })
         this.dialog = false;
       },
@@ -74,7 +83,7 @@ import GroupService from '@/services/GroupService'
             this.$root.$emit('updateGroups', res.data.group)
             this.name = ''
           })
-      }
+      },
     }
   }
 </script>

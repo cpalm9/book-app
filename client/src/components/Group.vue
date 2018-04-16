@@ -2,7 +2,7 @@
   <v-layout row wrap text-xs-center>
     <v-flex xs12>
         <div style="margin-bottom: 1.5rem;">
-            <h1>Welcome {{ this.$route.params.name }}</h1>
+            <h1>Welcome to {{ this.$route.params.name }}</h1>
         </div>
     </v-flex>
     <v-flex xs3 style="margin-left: 13%;" >

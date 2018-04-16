@@ -65,4 +65,6 @@ module.exports = function(app){
     app.put('/group/start-reading', groupController.startReading)
 
     app.get('/current-reading', groupController.currentReadingList)
+
+    app.put('/user/group/update', userController.updateGroups)
 }

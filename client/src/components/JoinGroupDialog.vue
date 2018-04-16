@@ -33,6 +33,7 @@
 
 <script>
 import GroupService from '../services/GroupService'
+import {UPDATE_USER_GROUP} from '@/store/index'
   export default {
     data () {
       return {
@@ -52,7 +53,14 @@ import GroupService from '../services/GroupService'
             id: id,
             members: this.$store.state.user
           }).then(res => {
+            var user = this.$store.state.user
             this.$root.$emit('updateGroups', res.data.group)
+            this.$store.dispatch(UPDATE_USER_GROUP, {group: res.data.group, user: user}).then((res) => {
+                if(res.data.status !==200){
+                    this.$store.dispatch("Error")
+                }
+                // console.log(res)
+            })
             this.name = ''
             this.dialog = false
           })

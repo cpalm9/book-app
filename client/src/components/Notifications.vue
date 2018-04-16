@@ -22,7 +22,7 @@
                 <div id="textStuff">
                     <div id="textHead">
                         <small id="timeStamp">{{card.datePosted}}</small>
-                        <h4>{{card.user}}</h4>
+                        <h4>{{card.user}} - </h4>
                     </div>
                     <p style="margin-right: 1.5rem;">{{card.comment}}</p>
                     <v-card-actions style="margin: 0; padding: 0;">
@@ -50,11 +50,13 @@
 
 import AddCommentDialog from './AddCommentDialog.vue';
 import NotificationService from '../services/NotificationService'
+import GroupService from '../services/GroupService'
 export default {
   name: "Notifications",
   data() {
     return {
-        cards: []
+        cards: [],
+        groups: []
     }
   },
   methods: {
@@ -69,16 +71,24 @@ export default {
             var hours = date.getHours()
             el.datePosted = (date.getUTCMonth() + 1) + '/' + date.getUTCDate() + '/' + date.getFullYear() + ' ' + hours + ':' + minutes
         });
-
         var userNotifications = notifications.filter((x)=> {
-             return this.$store.state.user.groups.includes(x.group[0]) 
+            return this.$store.state.user.groups.includes(x.group[0]) 
         })
         this.cards = userNotifications
+      },
+      async getGroups() {
+          var res = await GroupService.getGroups()
+          var allGroups = res.data.groups
+          return allGroups
       }
   },
   mounted (){
       this.getNotifications()
       this.$root.$on('notification-added', ()=>{
+          this.getNotifications()
+      })
+      this.$root.$on('updateGroups', ()=> {
+          console.log('hits this')
           this.getNotifications()
       })
   },

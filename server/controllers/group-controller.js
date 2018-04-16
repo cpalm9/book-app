@@ -154,7 +154,7 @@ function isEmpty(obj) {
 
 exports.currentReadingList = (req, res) => {
     var array = []
-    Group.find({}, 'name currentBook', (err, groups)=> {
+    Group.find({}, '_id name currentBook', (err, groups)=> {
         groups.forEach(el => {
             if(el.currentBook.title !== undefined){
                 array.push(el.currentBook)

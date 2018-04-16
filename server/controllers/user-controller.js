@@ -51,3 +51,15 @@ exports.updateUser = (req, res) => {
         })
     })
 }
+
+exports.updateGroups = (req, res) => {
+    var userID = req.body.user.id
+    User.findById(userID, 'name username readingList groups', (err, user) => {
+        user.save(err => {
+            if(err) console.log(err)
+            res.send({
+                success: true, user: user, group: req.body.group
+            })
+        })
+    })
+}

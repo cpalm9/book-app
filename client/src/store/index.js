@@ -8,6 +8,8 @@ export const USER_ERROR = 'USER_ERROR'
 export const AUTH_REGISTER = 'AUTH_REGISTER'
 export const UPDATE_READING_LIST = 'UPDATE_READING_LIST'
 export const UPDATE_SUCCESS = 'UPDATE_SUCCESS'
+export const UPDATE_USER_GROUP = 'UPDATE_USER_GROUP'
+export const UPDATE_GROUP_SUCCESS = 'UPDATE_GROUP_SUCCESS'
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
@@ -96,10 +98,22 @@ export default new Vuex.Store({
         commit(UPDATE_READING_LIST)
         axios({url: 'http://localhost:8081/user/update', data: book, method: 'PUT'})
         .then(res => {
-          console.log(res.data.user)
           var readingList = res.data.user.readingList
           commit(UPDATE_SUCCESS, {
             readingList: readingList
+          })
+        })
+      })
+    },
+    [UPDATE_USER_GROUP]: ({commit, dispatch}, group) => {
+      return new Promise((resolve, reject)=>{
+        commit(UPDATE_USER_GROUP)
+        // console.log(group)
+        axios({url: 'http://localhost:8081/user/group/update', data: group, method:'PUT'})
+        .then((res) => {
+          var group = res.data.group
+          commit(UPDATE_GROUP_SUCCESS, {
+            group: group
           })
         })
       })
@@ -133,6 +147,14 @@ export default new Vuex.Store({
     },
     [UPDATE_READING_LIST]: (state) => {
       state.status = 'updating'
+    },
+    [UPDATE_GROUP_SUCCESS]: (state, payload) => {
+      state.status = 'updated groups'
+      console.log(payload)
+      state.user.groups.push(payload.group._id)
+    },
+    [UPDATE_USER_GROUP]: (state)=> {
+      state.status = 'updating user groups'
     }
   }
 })
