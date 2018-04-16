@@ -64,6 +64,9 @@ export default {
   },
   mounted() {
     this.getList()
+    this.$root.$on('updateGroup', () => {
+      this.getList()
+    })
   }
 };
 </script>
