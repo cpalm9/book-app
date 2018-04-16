@@ -67,7 +67,7 @@ import GroupService from '../services/GroupService'
         var groups = response.data.groups
         var userGroups = []
         for(var p in groups){
-          console.log(groups[p])
+          // console.log(groups[p])
           if(groups[p].members.includes(this.$store.state.user.id)){
             userGroups.push(groups[p])
           }

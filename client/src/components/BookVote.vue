@@ -152,7 +152,7 @@ import GroupService from '../services/GroupService'
             });
         },
         async addToVoteList(book) {
-            console.log(book)
+            // console.log(book)
           var newBook = { 
                 title: book.title,
                 author: book.author,

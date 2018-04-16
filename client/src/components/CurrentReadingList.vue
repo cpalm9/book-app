@@ -50,7 +50,16 @@ export default {
   methods: {
     async getList(){
       var response = await GroupService.currentReadingList()
-      this.readingList = response.data.bookList
+      var groups = response.data.groups
+      groups.forEach((el) => {
+        if(el.members.includes(this.$store.state.user.id)) {
+          if(el.currentBook) {
+            this.readingList.push(el.currentBook)
+          }
+        }
+      })
+      
+      // this.readingList = response.data.bookList
     }
   },
   mounted() {
