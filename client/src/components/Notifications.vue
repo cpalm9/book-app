@@ -16,7 +16,7 @@
         grid-list-lg
       >
         <v-layout row wrap>
-          <v-flex v-for="card in cards" :key="card.id">
+          <v-flex v-for="card in cards" :key="card.id" style="overflow: hidden">
             <v-card style="text-align: left; overflow: hidden;">
                 <img id="userPic" src="/static/images/einstein.jpg">
                 <div id="textStuff">
@@ -24,7 +24,7 @@
                         <small id="timeStamp">{{card.datePosted}}</small>
                         <h4>{{card.user}} - </h4>
                     </div>
-                    <p style="margin-right: 1.5rem; overflow: hidden">{{card.comment}}</p>
+                    <p style="margin-right: 1.5rem; overflow: hidden;">{{card.comment}}</p>
                     <v-card-actions style="margin: 0; padding: 0;">
                         <v-spacer></v-spacer>
                         <v-badge left color="red" overlap>
@@ -111,6 +111,7 @@ export default {
         margin-top: 1.5rem;
         float: right;
         position: relative;
+        overflow: auto;
     }
     #timeStamp{
         color: #6c757d !important;
