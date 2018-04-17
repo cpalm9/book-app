@@ -64,7 +64,7 @@ export default {
   },
   mounted() {
     this.getList()
-    this.$root.$on('updateGroup', () => {
+    this.$root.$on('updateGroups', () => {
       this.getList()
     })
   }
